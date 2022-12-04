@@ -4,22 +4,23 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Feedback {
-    private Customer customer;
+    private long id;
+    private Customer author;
     private String text;
     private LocalDateTime createdAt;
 
-    public Feedback(Customer customer, String text, LocalDateTime createdAt) {
-        this.customer = customer;
+    public Feedback(Customer author, String text, LocalDateTime createdAt) {
+        this.author = author;
         this.text = text;
         this.createdAt = createdAt;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public Customer getAuthor() {
+        return author;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setAuthor(Customer author) {
+        this.author = author;
     }
 
     public String getText() {
@@ -38,16 +39,24 @@ public class Feedback {
         this.createdAt = createdAt;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Feedback feedback = (Feedback) o;
-        return customer.equals(feedback.customer) && text.equals(feedback.text) && createdAt.equals(feedback.createdAt);
+        return id == feedback.id && author.equals(feedback.author) && text.equals(feedback.text) && createdAt.equals(feedback.createdAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(customer, text, createdAt);
+        return Objects.hash(id, author, text, createdAt);
     }
 }
