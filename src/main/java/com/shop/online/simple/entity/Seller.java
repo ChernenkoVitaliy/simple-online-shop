@@ -1,8 +1,6 @@
 package com.shop.online.simple.entity;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class Seller {
     private Account account;
@@ -12,13 +10,13 @@ public class Seller {
     private String site;
     private List<Product> products;
 
-    public Seller(Account account, String companyName, String companyDescription, Set<String> phones, String site, List<Product> products) {
+    public Seller(Account account, String companyName, String companyDescription, Set<String> phones, String site) {
         this.account = account;
         this.companyName = companyName;
         this.companyDescription = companyDescription;
         this.phones = phones;
         this.site = site;
-        this.products = products;
+        this.products = new ArrayList<>();
     }
 
     public Account getAccount() {

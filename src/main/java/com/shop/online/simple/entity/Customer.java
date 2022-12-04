@@ -9,14 +9,15 @@ public class Customer {
     private String phone;
     private Cart cart;
     private Address deliveryAddress;
+    private WishList wishList;
 
-    public Customer(Account account, String name, String surname, String phone, Cart cart, Address deliveryAddress) {
+    public Customer(Account account, String name, String surname, String phone) {
         this.account = account;
         this.name = name;
         this.surname = surname;
         this.phone = phone;
-        this.cart = cart;
-        this.deliveryAddress = deliveryAddress;
+        this.cart = new Cart();
+        this.wishList = new WishList();
     }
 
     public Account getAccount() {
@@ -67,16 +68,24 @@ public class Customer {
         this.deliveryAddress = deliveryAddress;
     }
 
+    public WishList getWishList() {
+        return wishList;
+    }
+
+    public void setWishList(WishList wishList) {
+        this.wishList = wishList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return account.equals(customer.account) && name.equals(customer.name) && surname.equals(customer.surname) && phone.equals(customer.phone) && Objects.equals(cart, customer.cart) && Objects.equals(deliveryAddress, customer.deliveryAddress);
+        return account.equals(customer.account) && name.equals(customer.name) && surname.equals(customer.surname) && phone.equals(customer.phone) && Objects.equals(cart, customer.cart) && Objects.equals(deliveryAddress, customer.deliveryAddress) && Objects.equals(wishList, customer.wishList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(account, name, surname, phone, cart, deliveryAddress);
+        return Objects.hash(account, name, surname, phone, cart, deliveryAddress, wishList);
     }
 }
