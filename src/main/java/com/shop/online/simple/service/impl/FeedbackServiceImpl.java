@@ -6,9 +6,11 @@ import com.shop.online.simple.entity.Product;
 import com.shop.online.simple.repository.FeedbackRepository;
 import com.shop.online.simple.repository.ProductRepository;
 import com.shop.online.simple.service.FeedbackService;
+import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+@Service
 public class FeedbackServiceImpl implements FeedbackService {
     private final transient FeedbackRepository feedbackRepo;
     private final transient ProductRepository productRepo;
