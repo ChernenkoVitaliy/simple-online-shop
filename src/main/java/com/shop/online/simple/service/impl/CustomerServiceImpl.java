@@ -7,10 +7,12 @@ import com.shop.online.simple.repository.CartRepository;
 import com.shop.online.simple.repository.OrderRepository;
 import com.shop.online.simple.repository.WishListRepository;
 import com.shop.online.simple.service.CustomerService;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Service
 public class CustomerServiceImpl implements CustomerService {
     private final transient CartRepository cartRepository;
     private final transient OrderRepository orderRepository;

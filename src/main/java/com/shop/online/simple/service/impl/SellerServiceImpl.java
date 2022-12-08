@@ -4,9 +4,11 @@ import com.shop.online.simple.entity.Product;
 import com.shop.online.simple.entity.Seller;
 import com.shop.online.simple.repository.ProductRepository;
 import com.shop.online.simple.service.SellerService;
+import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+@Service
 public class SellerServiceImpl implements SellerService {
     private final transient ProductRepository productRepository;
     private final static String PRODUCT_ERR_TEXT = "Product must not be null.";
