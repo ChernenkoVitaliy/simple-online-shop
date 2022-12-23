@@ -9,11 +9,11 @@ public class Product {
     private String name;
     private String description;
     private Set<Tag> tags;
-    private long price;
+    private double price;
     private Set<Photo> photos;
     private Set<Feedback> feedbacks;
 
-    public Product(String name, String description, long price) {
+    public Product(String name, String description, double price) {
         this.name = name;
         this.description = description;
         this.tags = new HashSet<>();
@@ -46,11 +46,11 @@ public class Product {
         this.tags = tags;
     }
 
-    public long getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

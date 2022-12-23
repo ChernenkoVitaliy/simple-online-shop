@@ -6,20 +6,20 @@ import java.util.List;
 import java.util.Objects;
 
 public class Cart {
-    private LocalDateTime created;
+    private LocalDateTime createdAt;
     private List<Product> products;
 
     public Cart() {
-        this.created = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now();
         this.products = new ArrayList<>();
     }
 
-    public LocalDateTime getCreated() {
-        return created;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated(LocalDateTime created) {
-        this.created = created;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public List<Product> getProducts() {
@@ -35,11 +35,11 @@ public class Cart {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cart cart = (Cart) o;
-        return Objects.equals(created, cart.created) && Objects.equals(products, cart.products);
+        return Objects.equals(createdAt, cart.createdAt) && Objects.equals(products, cart.products);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(created, products);
+        return Objects.hash(createdAt, products);
     }
 }

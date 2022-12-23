@@ -6,13 +6,11 @@ public class Address {
     private String country;
     private String city;
     private String street;
-    private String phone;
 
-    public Address(String country, String city, String street, String phone) {
+    public Address(String country, String city, String street) {
         this.country = country;
         this.city = city;
         this.street = street;
-        this.phone = phone;
     }
 
     public String getCountry() {
@@ -39,24 +37,16 @@ public class Address {
         this.street = street;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
-        return country.equals(address.country) && city.equals(address.city) && street.equals(address.street) && phone.equals(address.phone);
+        return country.equals(address.country) && city.equals(address.city) && street.equals(address.street);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(country, city, street, phone);
+        return Objects.hash(country, city, street);
     }
 }

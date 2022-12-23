@@ -1,6 +1,7 @@
 package com.shop.online.simple.service.impl;
 
 import com.shop.online.simple.entity.*;
+import com.shop.online.simple.entity.enums.OrderStatus;
 import com.shop.online.simple.exception.EmptyCartException;
 import com.shop.online.simple.exception.ProductAlreadyAddedException;
 import com.shop.online.simple.repository.CartRepository;
@@ -9,7 +10,6 @@ import com.shop.online.simple.repository.WishListRepository;
 import com.shop.online.simple.service.CustomerService;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Service
@@ -70,9 +70,10 @@ public class CustomerServiceImpl implements CustomerService {
             throw new EmptyCartException("Can't create order. Cart is empty.");
         }
 
-        final Order newOrder = new Order(customer, LocalDateTime.now(), customer.getCart().getProducts(), OrderStatus.NEW);
+        final Order newOrder = new Order(customer, customer.getCart().getProducts(), OrderStatus.NEW);
+        orderRepository.save(newOrder);
 
-        return orderRepository.save(newOrder);
+        return newOrder;
     }
 
     /*Customer can add products to wish list*/

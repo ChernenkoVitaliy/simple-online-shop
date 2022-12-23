@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    hikari:
+      driver-class-name: "org.h2.Driver"
+      jdbc-url: "jdbc:h2:mem:~/simple_online_shop_test"
+      minimum-idle: 2
+      maximum-pool-size: 5

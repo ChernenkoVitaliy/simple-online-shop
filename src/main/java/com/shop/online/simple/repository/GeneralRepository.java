@@ -5,13 +5,13 @@ import java.util.Optional;
 
 public interface GeneralRepository<T> {
 
-    Optional<T> get(long id);
+    Optional<T> findOne(long id);
 
-    List<T> getAll();
+    List<T> findAll();
 
-    T save(T t);
+    void save(T t);
 
-    T update(T t);
+    void update(T t);
 
-    boolean delete(T t);
+    void delete(T t);
 }

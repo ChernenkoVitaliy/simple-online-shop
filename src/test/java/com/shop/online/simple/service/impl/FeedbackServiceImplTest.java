@@ -13,10 +13,8 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class FeedbackServiceImplTest {
     private FeedbackService feedbackService;
@@ -32,16 +30,14 @@ public class FeedbackServiceImplTest {
     public void setUp() {
         feedbackService = new FeedbackServiceImpl(feedbackRepository, productRepository);
         feedbackWithId = feedback;
-        feedbackWithId.setId(1L);
     }
 
     @Test
-    public void whenAddNewFeedback_ThenReturnFeedbackWithId() {
-        when(feedbackRepository.save(any(Feedback.class))).thenReturn(feedbackWithId);
+    public void whenAddNewFeedback_ThenReturnFeedback() {
 
         var result = feedbackService.addFeedback(product, feedback, author);
 
-        assertTrue(result.getId() > 0);
+        assertNotNull(result);
     }
 
     @Test

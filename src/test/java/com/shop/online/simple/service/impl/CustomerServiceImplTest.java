@@ -1,6 +1,7 @@
 package com.shop.online.simple.service.impl;
 
 import com.shop.online.simple.entity.*;
+import com.shop.online.simple.entity.enums.OrderStatus;
 import com.shop.online.simple.exception.EmptyCartException;
 import com.shop.online.simple.exception.ProductAlreadyAddedException;
 import com.shop.online.simple.repository.CartRepository;
@@ -10,13 +11,10 @@ import com.shop.online.simple.service.CustomerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class CustomerServiceImplTest {
     private CustomerService customerService;
@@ -97,7 +95,6 @@ public class CustomerServiceImplTest {
     @Test
     public void whenCreateOrder_AndCartContainsProducts_ThenReturnOrderWithStatusNew() {
         customer.getCart().getProducts().add(product);
-        when(orderRepository.save(any(Order.class))).thenReturn(order);
 
         var result = customerService.createOrder(customer);
 
@@ -152,6 +149,6 @@ public class CustomerServiceImplTest {
     }
 
     private Order createOrder() {
-        return new Order(customer, LocalDateTime.now(), customer.getCart().getProducts(), OrderStatus.NEW);
+        return new Order(customer, customer.getCart().getProducts(), OrderStatus.NEW);
     }
 }
