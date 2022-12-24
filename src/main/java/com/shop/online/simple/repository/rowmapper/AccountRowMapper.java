@@ -9,9 +9,8 @@ import java.sql.SQLException;
 
 public class AccountRowMapper implements RowMapper<Account> {
     @Override
-    public Account mapRow(ResultSet rs, int rowNum) throws SQLException {
-        Account account = new Account();
-
+    public Account mapRow(final ResultSet rs, final int rowNum) throws SQLException {
+        final Account account = new Account();
         account.setId(rs.getInt("id"));
         account.setEmail(rs.getString("email"));
         account.setPassword(rs.getString("password"));

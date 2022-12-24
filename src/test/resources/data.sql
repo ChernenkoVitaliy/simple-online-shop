@@ -5,8 +5,8 @@ INSERT INTO account(email, password, created_at, account_status) VALUES('email4@
 INSERT INTO account(email, password, created_at, account_status) VALUES('email5@mail.com', 'password5', '2021-05-07T01:22:20', 'ACTIVE');
 INSERT INTO account(email, password, created_at, account_status) VALUES('email6@mail.com', 'password6', '2022-03-30T21:21:21', 'ACTIVE');
 
-INSERT INTO address(country, city, street) VALUES('Ukraine', 'Kyiv', '1st avenu');
-INSERT INTO address(country, city, street) VALUES('USA', 'New York', '5th avenu');
+INSERT INTO address(country, city, street) VALUES('Ukraine', 'Kyiv', '1st avenue');
+INSERT INTO address(country, city, street) VALUES('USA', 'New York', '5th avenue');
 
 INSERT INTO seller(account_id, company_name, company_description, company_site) VALUES (3, 'Company1', 'Company description1', 'site1.com.ua');
 INSERT INTO seller(account_id, company_name, company_description, company_site) VALUES (4, 'Company2', 'Company description2', 'site2.com.ua');

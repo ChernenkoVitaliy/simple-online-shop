@@ -7,16 +7,17 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Repository
 public class AccountRepositoryImpl implements AccountRepository {
-    private final String INSERT_SQL = "INSERT INTO account(email, password, created_at, account_status) VALUES(?, ?, ?, ?);";
-    private final String UPDATE_SQL = "UPDATE account SET email = ?, password = ?, account_status = ? WHERE id = ?;";
-    private final String SELECT_ONE_SQL = "SELECT * FROM account WHERE id = ?;";
-    private final String SELECT_ALL_SQL = "SELECT * FROM account;";
-    private final String DELETE_ONE_SQL = "DELETE FROM account WHERE id = ?";
-    private final JdbcTemplate jdbcTemplate;
+    private static final String INSERT_SQL = "INSERT INTO account(email, password, created_at, account_status) VALUES(?, ?, ?, ?);";
+    private static final String UPDATE_SQL = "UPDATE account SET email = ?, password = ?, account_status = ? WHERE id = ?;";
+    private static final String SELECT_ONE_SQL = "SELECT * FROM account WHERE id = ?;";
+    private static final String SELECT_ALL_SQL = "SELECT * FROM account;";
+    private static final String DELETE_ONE_SQL = "DELETE FROM account WHERE id = ?";
+    private transient final JdbcTemplate jdbcTemplate;
 
     public AccountRepositoryImpl(final JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -24,9 +25,9 @@ public class AccountRepositoryImpl implements AccountRepository {
 
     @Override
     public Optional<Account> findOne(final long id) {
-        List<Account> result = jdbcTemplate.query(SELECT_ONE_SQL, new AccountRowMapper(), id);
+        final List<Account> result = jdbcTemplate.query(SELECT_ONE_SQL, new AccountRowMapper(), id);
 
-        return result.size() == 0 ? Optional.empty() : Optional.of(result.get(0));
+        return result.isEmpty() ? Optional.empty() : Optional.of(result.get(0));
     }
 
     @Override
@@ -37,13 +38,13 @@ public class AccountRepositoryImpl implements AccountRepository {
     @Override
     public void save(final Account account) {
         jdbcTemplate.update(INSERT_SQL,
-                account.getEmail(), account.getPassword(), account.getCreatedAt(), account.getAccountStatus().toString().toUpperCase());
+                account.getEmail(), account.getPassword(), account.getCreatedAt(), account.getAccountStatus().toString().toUpperCase(Locale.US));
     }
 
     @Override
     public void update(final Account account) {
         jdbcTemplate.update(UPDATE_SQL,
-                account.getEmail(), account.getPassword(), account.getAccountStatus().toString().toUpperCase(),
+                account.getEmail(), account.getPassword(), account.getAccountStatus().toString().toUpperCase(Locale.US),
                 account.getId());
     }
 

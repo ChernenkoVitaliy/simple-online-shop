@@ -3,14 +3,26 @@ package com.shop.online.simple.entity;
 import java.util.Objects;
 
 public class Address {
+    private long id;
     private String country;
     private String city;
     private String street;
+
+    public Address() {
+    }
 
     public Address(String country, String city, String street) {
         this.country = country;
         this.city = city;
         this.street = street;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getCountry() {
@@ -42,11 +54,11 @@ public class Address {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
-        return country.equals(address.country) && city.equals(address.city) && street.equals(address.street);
+        return id == address.id && country.equals(address.country) && city.equals(address.city) && street.equals(address.street);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(country, city, street);
+        return Objects.hash(id, country, city, street);
     }
 }
