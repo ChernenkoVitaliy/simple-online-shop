@@ -75,9 +75,16 @@ public class TagRepositoryImplIntegrationTest {
     }
 
     @Test
-    public void whenFindByName_AntTagPresentInDataBase_ThenReturnTag() {
+    public void whenFindByName_AndTagPresentInDataBase_ThenReturnTag() {
         Optional<Tag> result = tagRepository.findByName("tag_name1");
 
         assertTrue(result.isPresent());
+    }
+
+    @Test
+    public void whenFindByName_AntTagPresentNotInDataBase_ThenReturnOptionalEmpty() {
+        Optional<Tag> result = tagRepository.findByName("not_existed_name");
+
+        assertTrue(result.isEmpty());
     }
 }

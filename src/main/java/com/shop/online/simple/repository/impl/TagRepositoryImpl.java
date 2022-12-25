@@ -26,7 +26,7 @@ public class TagRepositoryImpl implements TagRepository {
 
     @Override
     public Optional<Tag> findOne(final long id) {
-        List<Tag> result = jdbcTemplate.query(SELECT_ONE_SQL, new TagRowMapper(), id);
+        final List<Tag> result = jdbcTemplate.query(SELECT_ONE_SQL, new TagRowMapper(), id);
 
         return result.isEmpty() ? Optional.empty() : Optional.of(result.get(0));
     }
@@ -53,7 +53,7 @@ public class TagRepositoryImpl implements TagRepository {
 
     @Override
     public Optional<Tag> findByName(final String name) {
-        List<Tag> result = jdbcTemplate.query(FIND_BY_NAME_SQL, new TagRowMapper(), name);
+        final List<Tag> result = jdbcTemplate.query(FIND_BY_NAME_SQL, new TagRowMapper(), name);
 
         return result.isEmpty() ? Optional.empty() : Optional.of(result.get(0));
     }

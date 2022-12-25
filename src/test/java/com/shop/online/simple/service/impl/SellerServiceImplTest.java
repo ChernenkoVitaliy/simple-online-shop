@@ -3,30 +3,29 @@ package com.shop.online.simple.service.impl;
 import com.shop.online.simple.entity.Account;
 import com.shop.online.simple.entity.Product;
 import com.shop.online.simple.entity.Seller;
+import com.shop.online.simple.entity.Tag;
 import com.shop.online.simple.repository.ProductRepository;
-import com.shop.online.simple.repository.TagRepository;
 import com.shop.online.simple.service.SellerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class SellerServiceImplTest {
     private SellerService sellerService;
     private ProductRepository productRepository = mock(ProductRepository.class);
-    private TagRepository tagRepository = mock(TagRepository.class);
     private Product newProduct = createProduct();
     private Product productWithId = createProduct();
     private Seller seller = createSeller();
 
     @BeforeEach
     public void setUp() {
-        sellerService = new SellerServiceImpl(productRepository, tagRepository);
+        sellerService = new SellerServiceImpl(productRepository);
         productWithId.setId(1L);
         seller.getProducts().add(productWithId);
     }
