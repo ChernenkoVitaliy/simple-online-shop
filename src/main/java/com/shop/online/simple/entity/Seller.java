@@ -3,12 +3,15 @@ package com.shop.online.simple.entity;
 import java.util.*;
 
 public class Seller {
+    private long id;
     private Account account;
     private String companyName;
     private String companyDescription;
     private Set<String> phones;
     private String site;
     private List<Product> products;
+
+    public Seller() {}
 
     public Seller(Account account, String companyName, String companyDescription, Set<String> phones, String site) {
         this.account = account;
@@ -17,6 +20,14 @@ public class Seller {
         this.phones = phones;
         this.site = site;
         this.products = new ArrayList<>();
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Account getAccount() {
@@ -72,11 +83,11 @@ public class Seller {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Seller seller = (Seller) o;
-        return account.equals(seller.account) && companyName.equals(seller.companyName) && companyDescription.equals(seller.companyDescription) && phones.equals(seller.phones) && Objects.equals(site, seller.site) && Objects.equals(products, seller.products);
+        return id == seller.id && account.equals(seller.account) && companyName.equals(seller.companyName) && companyDescription.equals(seller.companyDescription) && phones.equals(seller.phones) && Objects.equals(site, seller.site) && Objects.equals(products, seller.products);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(account, companyName, companyDescription, phones, site, products);
+        return Objects.hash(id, account, companyName, companyDescription, phones, site, products);
     }
 }
