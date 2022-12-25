@@ -3,12 +3,23 @@ package com.shop.online.simple.entity;
 import java.util.Objects;
 
 public class Tag {
+    private long id;
     private String name;
     private String description;
+
+    public Tag() {}
 
     public Tag(String name, String description) {
         this.name = name;
         this.description = description;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -32,11 +43,11 @@ public class Tag {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Tag tag = (Tag) o;
-        return name.equals(tag.name) && description.equals(tag.description);
+        return id == tag.id && name.equals(tag.name) && description.equals(tag.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description);
+        return Objects.hash(id, name, description);
     }
 }

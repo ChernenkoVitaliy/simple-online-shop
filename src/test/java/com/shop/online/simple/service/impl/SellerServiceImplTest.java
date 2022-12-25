@@ -4,6 +4,7 @@ import com.shop.online.simple.entity.Account;
 import com.shop.online.simple.entity.Product;
 import com.shop.online.simple.entity.Seller;
 import com.shop.online.simple.repository.ProductRepository;
+import com.shop.online.simple.repository.TagRepository;
 import com.shop.online.simple.service.SellerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,13 +19,14 @@ import static org.mockito.Mockito.mock;
 public class SellerServiceImplTest {
     private SellerService sellerService;
     private ProductRepository productRepository = mock(ProductRepository.class);
+    private TagRepository tagRepository = mock(TagRepository.class);
     private Product newProduct = createProduct();
     private Product productWithId = createProduct();
     private Seller seller = createSeller();
 
     @BeforeEach
     public void setUp() {
-        sellerService = new SellerServiceImpl(productRepository);
+        sellerService = new SellerServiceImpl(productRepository, tagRepository);
         productWithId.setId(1L);
         seller.getProducts().add(productWithId);
     }

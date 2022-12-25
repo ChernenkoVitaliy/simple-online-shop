@@ -66,7 +66,7 @@ CREATE TABLE product(
     id          SERIAL PRIMARY KEY,
     name        VARCHAR(256)  NOT NULL,
     description TEXT          NOT NULL,
-    tag_id      INT           NOT NULL,
+    tag_id      INT           NULL,
     price       NUMERIC(6, 2) NOT NULL,
     seller_id   INT           NOT NULL,
     CONSTRAINT fk_product_tag_id
