@@ -11,6 +11,8 @@ public class Customer {
     private Address deliveryAddress;
     private WishList wishList;
 
+    public Customer() {}
+
     public Customer(Account account, String name, String surname, String phone) {
         this.account = account;
         this.name = name;

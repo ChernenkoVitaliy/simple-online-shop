@@ -3,7 +3,6 @@ package com.shop.online.simple.service.impl;
 import com.shop.online.simple.entity.Account;
 import com.shop.online.simple.entity.Product;
 import com.shop.online.simple.entity.Seller;
-import com.shop.online.simple.entity.Tag;
 import com.shop.online.simple.repository.ProductRepository;
 import com.shop.online.simple.service.SellerService;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +13,6 @@ import java.util.*;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class SellerServiceImplTest {
     private SellerService sellerService;

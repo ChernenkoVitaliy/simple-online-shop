@@ -33,7 +33,7 @@ public class FeedbackServiceImpl implements FeedbackService {
         product.getFeedbacks().add(feedback);
 
         productRepo.update(product);
-        feedbackRepo.save(feedback);
+        feedbackRepo.save(feedback, product);
 
         return feedback;
     }
