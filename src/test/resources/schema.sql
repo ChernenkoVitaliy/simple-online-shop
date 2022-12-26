@@ -66,29 +66,11 @@ CREATE TABLE product(
     id          SERIAL PRIMARY KEY,
     name        VARCHAR(256)  NOT NULL,
     description TEXT          NOT NULL,
-    tag_id      INT           NULL,
     price       NUMERIC(6, 2) NOT NULL,
     seller_id   INT           NOT NULL,
-    CONSTRAINT fk_product_tag_id
-        FOREIGN KEY (tag_id)
-            REFERENCES tag (id)
-            ON DELETE SET NULL
-            ON UPDATE CASCADE,
     CONSTRAINT fk_product_seller_id
         FOREIGN KEY (seller_id)
             REFERENCES seller (id)
-            ON DELETE CASCADE
-            ON UPDATE CASCADE
-);
-
-CREATE TABLE photo(
-    id            SERIAL PRIMARY KEY,
-    photo_file    BYTEA     NOT NULL,
-    creation_date TIMESTAMP NOT NULL,
-    product_id    INT       NOT NULL,
-    CONSTRAINT fk_photo_product_id
-        FOREIGN KEY (product_id)
-            REFERENCES product (id)
             ON DELETE CASCADE
             ON UPDATE CASCADE
 );
@@ -187,6 +169,22 @@ CREATE TABLE wish_list_product_customer(
     CONSTRAINT fk_wish_list_product_customer_customer_id
         FOREIGN KEY (customer_id)
             REFERENCES customer (id)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE
+);
+
+CREATE TABLE products_tags(
+    product_id INT NOT NULL,
+    tag_id     INT NOT NULL,
+    PRIMARY KEY (product_id, tag_id),
+    CONSTRAINT fk_products_tags_product_id
+        FOREIGN KEY (product_id)
+            REFERENCES product (id)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE,
+    CONSTRAINT fk_products_tags_tag_id
+        FOREIGN KEY (tag_id)
+            REFERENCES tag (id)
             ON DELETE CASCADE
             ON UPDATE CASCADE
 );

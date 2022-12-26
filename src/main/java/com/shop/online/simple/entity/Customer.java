@@ -83,7 +83,7 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return account.equals(customer.account) && name.equals(customer.name) && surname.equals(customer.surname) && phone.equals(customer.phone) && Objects.equals(cart, customer.cart) && Objects.equals(deliveryAddress, customer.deliveryAddress) && Objects.equals(wishList, customer.wishList);
+        return Objects.equals(account, customer.account) && name.equals(customer.name) && surname.equals(customer.surname) && Objects.equals(phone, customer.phone) && Objects.equals(cart, customer.cart) && Objects.equals(deliveryAddress, customer.deliveryAddress) && Objects.equals(wishList, customer.wishList);
     }
 
     @Override

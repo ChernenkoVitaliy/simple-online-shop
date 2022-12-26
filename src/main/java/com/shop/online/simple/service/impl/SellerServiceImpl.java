@@ -25,7 +25,7 @@ public class SellerServiceImpl implements SellerService {
         Objects.requireNonNull(seller, SELLER_ERR_TEXT);
 
         seller.getProducts().add(product);
-        productRepository.save(product);
+        productRepository.save(product, seller);
 
         return product;
     }

@@ -25,9 +25,9 @@ INSERT INTO tag(name, description) VALUES('tag_name1', 'tag_description1');
 INSERT INTO tag(name, description) VALUES('tag_name2', 'tag_description2');
 INSERT INTO tag(name, description) VALUES('tag_name3', 'tag_description3');
 
-INSERT INTO product(name, description, tag_id, price, seller_id) VALUES('product_name1', 'product_description1',1 ,1000.2 ,3);
-INSERT INTO product(name, description, tag_id, price, seller_id) VALUES('product_name2', 'product_description2',2 ,2000.3 ,2);
-INSERT INTO product(name, description, tag_id, price, seller_id) VALUES('product_name3', 'product_description3',3 ,3000.1 ,1);
+INSERT INTO product(name, description, price, seller_id) VALUES('product_name1', 'product_description1' ,1000.2 ,3);
+INSERT INTO product(name, description, price, seller_id) VALUES('product_name2', 'product_description2' ,2000.3 ,2);
+INSERT INTO product(name, description, price, seller_id) VALUES('product_name3', 'product_description3' ,3000.1 ,1);
 
 INSERT INTO feedback(account_id, feedback_text, created_at, product_id) VALUES(3, 'Feedback_text1', '2022-01-01T00:21:37',1);
 INSERT INTO feedback(account_id, feedback_text, created_at, product_id) VALUES(2, 'Feedback_text2', '2019-12-13T17:20:01',2);
@@ -56,3 +56,8 @@ INSERT INTO wish_list_product_customer(product_id, customer_id) VALUES(1, 2);
 INSERT INTO wish_list_product_customer(product_id, customer_id) VALUES(3, 1);
 INSERT INTO wish_list_product_customer(product_id, customer_id) VALUES(3, 3);
 INSERT INTO wish_list_product_customer(product_id, customer_id) VALUES(2, 1);
+
+INSERT INTO products_tags(product_id, tag_id) VALUES(1, 1);
+INSERT INTO products_tags(product_id, tag_id) VALUES(1, 2);
+INSERT INTO products_tags(product_id, tag_id) VALUES(2, 1);
+INSERT INTO products_tags(product_id, tag_id) VALUES(3, 1);
