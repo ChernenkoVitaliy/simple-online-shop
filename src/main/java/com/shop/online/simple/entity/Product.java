@@ -12,7 +12,10 @@ public class Product {
     private double price;
     private Set<Feedback> feedbacks;
 
-    public Product() {}
+    public Product() {
+        this.tags = new HashSet<>();
+        this.feedbacks = new HashSet<>();
+    }
 
     public Product(String name, String description, double price) {
         this.name = name;

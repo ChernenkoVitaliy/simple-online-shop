@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-@SuppressWarnings("PMD")
 public class ProductRowMapper implements ResultSetExtractor<List<Product>> {
 
     @Override
@@ -19,20 +18,11 @@ public class ProductRowMapper implements ResultSetExtractor<List<Product>> {
         final Map<Long, Product> productByID = new ConcurrentHashMap<>();
         while (rs.next()) {
             final long productId = rs.getLong("id");
-            final String productName = rs.getString("name");
-            final String productDescription = rs.getString("description");
-            final double price = rs.getDouble("price");
 
-            Product product = productByID.get(productId);
+            productByID.putIfAbsent(productId, populateProduct(rs, productId));
 
-            if (product == null) {
-                product = new Product(productName, productDescription, price);
-                product.setId(productId);
-                productByID.put(product.getId(), product);
-            }
-
-            populateTag(rs, product);
-            populateFeedback(rs, product);
+            populateTag(rs, productByID.get(productId));
+            populateFeedback(rs, productByID.get(productId));
         }
 
         return new ArrayList<>(productByID.values());
@@ -68,5 +58,15 @@ public class ProductRowMapper implements ResultSetExtractor<List<Product>> {
         author.setName(rs.getString("customer_name"));
         author.setSurname(rs.getString("customer_surname"));
         feedback.setAuthor(author);
+    }
+
+    private Product populateProduct(final ResultSet rs, final long  id) throws SQLException {
+        final Product product = new Product();
+        product.setId(id);
+        product.setName(rs.getString("name"));
+        product.setDescription(rs.getString("description"));
+        product.setPrice(rs.getDouble("price"));
+
+        return product;
     }
 }
