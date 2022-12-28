@@ -25,6 +25,15 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @ContextConfiguration(classes = SpringBootContextTestConfiguration.class)
 public class ProductRepositoryImplIntegrationTest {
+    private static final String SELECT_SQL = "SELECT product.id, product.name, product.description, product.price," +
+            "tag.id as tag_id, tag.name as tag_name, tag.description as tag_description," +
+            "feedback.id as feedback_id, feedback.feedback_text, feedback.created_at," +
+            "customer.id as customer_id, customer.name as customer_name, customer.surname as customer_surname " +
+            "FROM product " +
+            "LEFT JOIN products_tags ON product.id = products_tags.product_id " +
+            "LEFT JOIN tag ON products_tags.tag_id = tag.id " +
+            "LEFT JOIN feedback ON product.id = feedback.product_id " +
+            "LEFT JOIN customer ON feedback.account_id = customer.account_id ";
     private Seller seller = createSeller();
     @Autowired
     private ProductRepository productRepository;
@@ -53,8 +62,8 @@ public class ProductRepositoryImplIntegrationTest {
 
         productRepository.save(product, seller);
 
-        Product result = jdbcTemplate.queryForObject("SELECT * FROM product WHERE product.name = ?", new ProductRowMapper(),
-                product.getName());
+        Product result = jdbcTemplate.query(SELECT_SQL + "WHERE product.name = ?", new ProductRowMapper(),
+                product.getName()).get(0);
 
         assertNotNull(result);
     }
@@ -97,8 +106,6 @@ public class ProductRepositoryImplIntegrationTest {
 
         assertTrue(result.size() > 0);
     }
-
-
 
     private Account createAccount() {
         Account account = new Account();

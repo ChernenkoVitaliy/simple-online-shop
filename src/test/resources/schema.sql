@@ -66,7 +66,7 @@ CREATE TABLE product(
     id          SERIAL PRIMARY KEY,
     name        VARCHAR(256)  NOT NULL,
     description TEXT          NOT NULL,
-    price       NUMERIC(6, 2) NOT NULL,
+    price       NUMERIC(10, 2) NOT NULL,
     seller_id   INT           NOT NULL,
     CONSTRAINT fk_product_seller_id
         FOREIGN KEY (seller_id)
@@ -96,13 +96,7 @@ CREATE TABLE feedback(
 CREATE TABLE cart(
     id          SERIAL PRIMARY KEY,
     created_at  TIMESTAMP NOT NULL,
-    product_id  INT       NOT NULL,
     customer_id INT       NOT NULL,
-    CONSTRAINT fk_cart_product_id
-        FOREIGN KEY (product_id)
-            REFERENCES product (id)
-            ON DELETE CASCADE
-            ON UPDATE CASCADE,
     CONSTRAINT fk_cart_customer_id
         FOREIGN KEY (customer_id)
             REFERENCES customer (id)
@@ -185,6 +179,22 @@ CREATE TABLE products_tags(
     CONSTRAINT fk_products_tags_tag_id
         FOREIGN KEY (tag_id)
             REFERENCES tag (id)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE
+);
+
+CREATE TABLE carts_products(
+    cart_id    INT NOT NULL,
+    product_id INT NOT NULL,
+    PRIMARY KEY (cart_id, product_id),
+    CONSTRAINT fk_carts_products_cart_id
+        FOREIGN KEY (cart_id)
+            REFERENCES cart (id)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE,
+    CONSTRAINT fk_carts_products_product_id
+        FOREIGN KEY (product_id)
+            REFERENCES product (id)
             ON DELETE CASCADE
             ON UPDATE CASCADE
 );

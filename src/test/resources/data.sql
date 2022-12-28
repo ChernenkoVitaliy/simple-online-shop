@@ -8,9 +8,9 @@ INSERT INTO account(email, password, created_at, account_status) VALUES('email6@
 INSERT INTO address(country, city, street) VALUES('Ukraine', 'Kyiv', '1st avenue');
 INSERT INTO address(country, city, street) VALUES('USA', 'New York', '5th avenue');
 
-INSERT INTO seller(account_id, company_name, company_description, company_site) VALUES (3, 'Company1', 'Company description1', 'site1.com.ua');
-INSERT INTO seller(account_id, company_name, company_description, company_site) VALUES (4, 'Company2', 'Company description2', 'site2.com.ua');
-INSERT INTO seller(account_id, company_name, company_description, company_site) VALUES (5, 'Company3', 'Company description3', 'site3.com.ua');
+INSERT INTO seller(account_id, company_name, company_description, company_site) VALUES (4, 'Company1', 'Company description1', 'site1.com.ua');
+INSERT INTO seller(account_id, company_name, company_description, company_site) VALUES (5, 'Company2', 'Company description2', 'site2.com.ua');
+INSERT INTO seller(account_id, company_name, company_description, company_site) VALUES (6, 'Company3', 'Company description3', 'site3.com.ua');
 
 INSERT INTO seller_phones(phone, seller_id) VALUES('123-45-67', 3);
 INSERT INTO seller_phones(phone, seller_id) VALUES('234-56-78', 2);
@@ -33,9 +33,9 @@ INSERT INTO feedback(account_id, feedback_text, created_at, product_id) VALUES(3
 INSERT INTO feedback(account_id, feedback_text, created_at, product_id) VALUES(2, 'Feedback_text2', '2019-12-13T17:20:01',2);
 INSERT INTO feedback(account_id, feedback_text, created_at, product_id) VALUES(1, 'Feedback_text3', '2022-07-09T12:03:03',3);
 
-INSERT INTO cart(created_at, product_id, customer_id) VALUES('2022-10-10T00:02:27',3 ,2);
-INSERT INTO cart(created_at, product_id, customer_id) VALUES('2021-12-07T13:21:10',2 ,1);
-INSERT INTO cart(created_at, product_id, customer_id) VALUES('2022-04-28T07:07:07',1 ,3);
+INSERT INTO cart(created_at, customer_id) VALUES('2022-10-10T00:02:27', 2);
+INSERT INTO cart(created_at, customer_id) VALUES('2021-12-07T13:21:10', 1);
+INSERT INTO cart(created_at, customer_id) VALUES('2022-04-28T07:07:07', 3);
 
 INSERT INTO orders(created_at, order_status, customer_id) VALUES('2022-01-01T01:21:21', 'NEW',2);
 INSERT INTO orders(created_at, order_status, customer_id) VALUES('2022-11-11T11:03:11', 'PENDING',1);
@@ -61,3 +61,7 @@ INSERT INTO products_tags(product_id, tag_id) VALUES(1, 1);
 INSERT INTO products_tags(product_id, tag_id) VALUES(1, 2);
 INSERT INTO products_tags(product_id, tag_id) VALUES(2, 1);
 INSERT INTO products_tags(product_id, tag_id) VALUES(3, 1);
+
+INSERT INTO carts_products(cart_id, product_id) VALUES(1, 2);
+INSERT INTO carts_products(cart_id, product_id) VALUES(1, 3);
+INSERT INTO carts_products(cart_id, product_id) VALUES(2, 2);
