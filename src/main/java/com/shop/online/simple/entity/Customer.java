@@ -12,7 +12,10 @@ public class Customer {
     private Address deliveryAddress;
     private WishList wishList;
 
-    public Customer() {}
+    public Customer() {
+        this.cart = new Cart();
+        this.wishList = new WishList();
+    }
 
     public Customer(Account account, String name, String surname, String phone) {
         this.account = account;

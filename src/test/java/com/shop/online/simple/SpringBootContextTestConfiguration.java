@@ -11,11 +11,6 @@ import static org.mockito.Mockito.mock;
 public class SpringBootContextTestConfiguration {
     @Primary
     @Bean
-    public CartRepository mockedCartRepository() {
-        return mock(CartRepository.class);
-    }
-    @Primary
-    @Bean
     public CustomerRepository mockedCustomerRepository() {
         return mock(CustomerRepository.class);
     }

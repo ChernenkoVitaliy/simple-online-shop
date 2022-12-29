@@ -1,25 +1,23 @@
 package com.shop.online.simple.entity;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Cart {
-    private LocalDateTime createdAt;
+    private long id;
     private List<Product> products;
 
     public Cart() {
-        this.createdAt = LocalDateTime.now();
         this.products = new ArrayList<>();
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public long getId() {
+        return id;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public List<Product> getProducts() {
@@ -35,11 +33,11 @@ public class Cart {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cart cart = (Cart) o;
-        return Objects.equals(createdAt, cart.createdAt) && Objects.equals(products, cart.products);
+        return id == cart.getId() && Objects.equals(products, cart.products);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(createdAt, products);
+        return Objects.hash(id, products);
     }
 }

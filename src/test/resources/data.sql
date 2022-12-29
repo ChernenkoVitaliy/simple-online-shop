@@ -33,9 +33,8 @@ INSERT INTO feedback(account_id, feedback_text, created_at, product_id) VALUES(3
 INSERT INTO feedback(account_id, feedback_text, created_at, product_id) VALUES(2, 'Feedback_text2', '2019-12-13T17:20:01',2);
 INSERT INTO feedback(account_id, feedback_text, created_at, product_id) VALUES(1, 'Feedback_text3', '2022-07-09T12:03:03',3);
 
-INSERT INTO cart(created_at, customer_id) VALUES('2022-10-10T00:02:27', 2);
-INSERT INTO cart(created_at, customer_id) VALUES('2021-12-07T13:21:10', 1);
-INSERT INTO cart(created_at, customer_id) VALUES('2022-04-28T07:07:07', 3);
+INSERT INTO cart(customer_id) VALUES(2);
+INSERT INTO cart(customer_id) VALUES(1);
 
 INSERT INTO orders(created_at, order_status, customer_id) VALUES('2022-01-01T01:21:21', 'NEW',2);
 INSERT INTO orders(created_at, order_status, customer_id) VALUES('2022-11-11T11:03:11', 'PENDING',1);

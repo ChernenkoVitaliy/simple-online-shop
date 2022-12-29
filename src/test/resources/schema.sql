@@ -95,7 +95,6 @@ CREATE TABLE feedback(
 
 CREATE TABLE cart(
     id          SERIAL PRIMARY KEY,
-    created_at  TIMESTAMP NOT NULL,
     customer_id INT       NOT NULL,
     CONSTRAINT fk_cart_customer_id
         FOREIGN KEY (customer_id)

@@ -39,7 +39,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         customer.getCart().getProducts().add(product);
-        cartRepository.update(customer.getCart());
+        cartRepository.save(customer);
 
         return product;
     }
@@ -53,7 +53,7 @@ public class CustomerServiceImpl implements CustomerService {
         final Cart cart = customer.getCart();
 
         if (cart.getProducts().remove(product)) {
-            cartRepository.deleteProductFromCart(product);
+            cartRepository.deleteProductFromCart(cart, product);
 
             return true;
         }
