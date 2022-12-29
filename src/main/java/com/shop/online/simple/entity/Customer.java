@@ -82,6 +82,7 @@ public class Customer {
         this.deliveryAddress = deliveryAddress;
     }
 
+
     public WishList getWishList() {
         return wishList;
     }
