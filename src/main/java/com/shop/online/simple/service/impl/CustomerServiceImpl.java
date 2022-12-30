@@ -90,7 +90,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         wishList.getProducts().add(product);
-        wishListRepo.update(wishList);
+        wishListRepo.save(product, customer);
 
         return wishList;
     }

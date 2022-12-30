@@ -14,9 +14,4 @@ public class SpringBootContextTestConfiguration {
     public CustomerRepository mockedCustomerRepository() {
         return mock(CustomerRepository.class);
     }
-    @Primary
-    @Bean
-    public WishListRepository mockedWishListRepository() {
-        return mock(WishListRepository.class);
-    }
 }
