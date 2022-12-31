@@ -1,6 +1,5 @@
 package com.shop.online.simple.repository.impl;
 
-import com.shop.online.simple.SpringBootContextTestConfiguration;
 import com.shop.online.simple.entity.Account;
 import com.shop.online.simple.entity.Customer;
 import com.shop.online.simple.entity.Product;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -20,7 +18,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@ContextConfiguration(classes = SpringBootContextTestConfiguration.class)
 public class WishListRepositoryImplIntegrationTest {
     @Autowired
     private WishListRepository wishListRepository;

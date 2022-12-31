@@ -1,6 +1,5 @@
 package com.shop.online.simple.repository.impl;
 
-import com.shop.online.simple.SpringBootContextTestConfiguration;
 import com.shop.online.simple.entity.Account;
 import com.shop.online.simple.entity.Product;
 import com.shop.online.simple.entity.Seller;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -23,7 +21,6 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@ContextConfiguration(classes = SpringBootContextTestConfiguration.class)
 public class ProductRepositoryImplIntegrationTest {
     private static final String SELECT_SQL = "SELECT product.id, product.name, product.description, product.price," +
             "tag.id as tag_id, tag.name as tag_name, tag.description as tag_description," +

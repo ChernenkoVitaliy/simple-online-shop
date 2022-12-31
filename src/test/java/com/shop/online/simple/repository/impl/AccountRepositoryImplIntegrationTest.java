@@ -1,6 +1,5 @@
 package com.shop.online.simple.repository.impl;
 
-import com.shop.online.simple.SpringBootContextTestConfiguration;
 import com.shop.online.simple.entity.Account;
 import com.shop.online.simple.repository.AccountRepository;
 import com.shop.online.simple.repository.rowmapper.AccountRowMapper;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -19,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
-@ContextConfiguration(classes = SpringBootContextTestConfiguration.class)
 public class AccountRepositoryImplIntegrationTest {
     @Autowired
     private AccountRepository accountRepository;

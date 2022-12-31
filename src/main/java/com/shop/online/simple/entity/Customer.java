@@ -3,7 +3,7 @@ package com.shop.online.simple.entity;
 import java.util.Objects;
 
 public class Customer {
-    long id;
+    private long id;
     private Account account;
     private String name;
     private String surname;
