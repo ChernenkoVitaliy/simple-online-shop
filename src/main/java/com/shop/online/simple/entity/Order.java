@@ -1,20 +1,36 @@
 package com.shop.online.simple.entity;
 
+import com.shop.online.simple.entity.enums.OrderStatus;
+
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Order {
+    private long id;
     private Customer customer;
-    private LocalDateTime created;
+    private LocalDateTime createdAt;
     private List<Product> products;
     private OrderStatus orderStatus;
 
-    public Order(Customer customer, LocalDateTime created, List<Product> products, OrderStatus orderStatus) {
+    public Order() {
+        this.products = new ArrayList<>();
+    }
+
+    public Order(Customer customer, List<Product> products, OrderStatus orderStatus) {
         this.customer = customer;
-        this.created = created;
+        this.createdAt = LocalDateTime.now();
         this.products = products;
         this.orderStatus = orderStatus;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Customer getCustomer() {
@@ -25,12 +41,12 @@ public class Order {
         this.customer = customer;
     }
 
-    public LocalDateTime getCreated() {
-        return created;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated(LocalDateTime created) {
-        this.created = created;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public List<Product> getProducts() {
@@ -54,11 +70,11 @@ public class Order {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return customer.equals(order.customer) && created.equals(order.created) && products.equals(order.products) && orderStatus == order.orderStatus;
+        return id == order.getId() && customer.equals(order.customer) && createdAt.equals(order.createdAt) && products.equals(order.products) && orderStatus == order.orderStatus;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(customer, created, products, orderStatus);
+        return Objects.hash(id, customer, createdAt, products, orderStatus);
     }
 }

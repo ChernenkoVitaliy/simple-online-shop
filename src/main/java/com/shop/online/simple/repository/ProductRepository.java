@@ -5,11 +5,22 @@ import com.shop.online.simple.entity.Seller;
 import com.shop.online.simple.entity.Tag;
 
 import java.util.List;
+import java.util.Optional;
 
-public interface ProductRepository extends GeneralRepository<Product> {
+public interface ProductRepository {
 
-    List<Product> getProductsBySeller(Seller seller);
+    Optional<Product> findOne(long id);
 
-    List<Product> getProductsByTag(Tag tag);
+    List<Product> findAll();
+
+    void save(Product product, Seller seller);
+
+    void update(Product product);
+
+    void delete(Product product);
+
+    List<Product> findProductsBySeller(Seller seller);
+
+    List<Product> findProductsByTag(Tag tag);
 
 }

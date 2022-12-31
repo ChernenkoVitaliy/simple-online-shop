@@ -9,16 +9,19 @@ public class Product {
     private String name;
     private String description;
     private Set<Tag> tags;
-    private long price;
-    private Set<Photo> photos;
+    private double price;
     private Set<Feedback> feedbacks;
 
-    public Product(String name, String description, long price) {
+    public Product() {
+        this.tags = new HashSet<>();
+        this.feedbacks = new HashSet<>();
+    }
+
+    public Product(String name, String description, double price) {
         this.name = name;
         this.description = description;
         this.tags = new HashSet<>();
         this.price = price;
-        this.photos = new HashSet<>();
         this.feedbacks = new HashSet<>();
     }
 
@@ -46,20 +49,12 @@ public class Product {
         this.tags = tags;
     }
 
-    public long getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(double price) {
         this.price = price;
-    }
-
-    public Set<Photo> getPhotos() {
-        return photos;
-    }
-
-    public void setPhotos(Set<Photo> photos) {
-        this.photos = photos;
     }
 
     public long getId() {
@@ -83,11 +78,11 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return id == product.id && price == product.price && name.equals(product.name) && description.equals(product.description) && Objects.equals(tags, product.tags) && Objects.equals(photos, product.photos) && Objects.equals(feedbacks, product.feedbacks);
+        return id == product.id && Double.compare(product.price, price) == 0 && name.equals(product.name) && description.equals(product.description) && Objects.equals(tags, product.tags) && Objects.equals(feedbacks, product.feedbacks);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, tags, price, photos, feedbacks);
+        return Objects.hash(id, name, description, tags, price, feedbacks);
     }
 }

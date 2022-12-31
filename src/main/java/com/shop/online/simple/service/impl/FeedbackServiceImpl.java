@@ -32,9 +32,9 @@ public class FeedbackServiceImpl implements FeedbackService {
         feedback.setAuthor(author);
         product.getFeedbacks().add(feedback);
 
-
         productRepo.update(product);
+        feedbackRepo.save(feedback, product);
 
-        return feedbackRepo.save(feedback);
+        return feedback;
     }
 }

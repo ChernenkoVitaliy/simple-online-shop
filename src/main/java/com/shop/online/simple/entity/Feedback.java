@@ -9,6 +9,8 @@ public class Feedback {
     private String text;
     private LocalDateTime createdAt;
 
+    public Feedback() {}
+
     public Feedback(Customer author, String text, LocalDateTime createdAt) {
         this.author = author;
         this.text = text;

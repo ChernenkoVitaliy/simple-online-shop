@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    hikari:
+      driver-class-name: "org.postgresql.Driver"
+      jdbc-url: "jdbc:postgresql://localhost:5432/simple_online_shop"
+      username: "postgres"
+      password: "postgres"
+      minimum-idle: 2
+      maximum-pool-size: 5

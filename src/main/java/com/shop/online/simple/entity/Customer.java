@@ -3,6 +3,7 @@ package com.shop.online.simple.entity;
 import java.util.Objects;
 
 public class Customer {
+    private long id;
     private Account account;
     private String name;
     private String surname;
@@ -11,6 +12,11 @@ public class Customer {
     private Address deliveryAddress;
     private WishList wishList;
 
+    public Customer() {
+        this.cart = new Cart();
+        this.wishList = new WishList();
+    }
+
     public Customer(Account account, String name, String surname, String phone) {
         this.account = account;
         this.name = name;
@@ -18,6 +24,14 @@ public class Customer {
         this.phone = phone;
         this.cart = new Cart();
         this.wishList = new WishList();
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Account getAccount() {
@@ -68,6 +82,7 @@ public class Customer {
         this.deliveryAddress = deliveryAddress;
     }
 
+
     public WishList getWishList() {
         return wishList;
     }
@@ -81,11 +96,11 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return account.equals(customer.account) && name.equals(customer.name) && surname.equals(customer.surname) && phone.equals(customer.phone) && Objects.equals(cart, customer.cart) && Objects.equals(deliveryAddress, customer.deliveryAddress) && Objects.equals(wishList, customer.wishList);
+        return id == customer.id && Objects.equals(account, customer.account) && name.equals(customer.name) && surname.equals(customer.surname) && Objects.equals(phone, customer.phone) && Objects.equals(cart, customer.cart) && Objects.equals(deliveryAddress, customer.deliveryAddress) && Objects.equals(wishList, customer.wishList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(account, name, surname, phone, cart, deliveryAddress, wishList);
+        return Objects.hash(id, account, name, surname, phone, cart, deliveryAddress, wishList);
     }
 }

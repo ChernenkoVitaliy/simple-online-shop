@@ -8,14 +8,11 @@ import com.shop.online.simple.service.SellerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class SellerServiceImplTest {
     private SellerService sellerService;
@@ -32,12 +29,11 @@ public class SellerServiceImplTest {
     }
 
     @Test
-    public void whenAddNewProduct_thenReturnProductWithId() {
-        when(productRepository.save(newProduct)).thenReturn(productWithId);
+    public void whenAddNewProduct_thenReturnProduct() {
 
         var addedProduct = sellerService.addNewProduct(newProduct, seller);
 
-        assertTrue(addedProduct.getId() > 0);
+        assertNotNull(addedProduct);
     }
 
     @Test
@@ -54,7 +50,6 @@ public class SellerServiceImplTest {
 
     @Test
     public void whenSellerDeleteOwnProduct_AndProductExists_ThenReturnTrue() {
-        when(productRepository.delete(productWithId)).thenReturn(true);
 
         var result = sellerService.deleteProduct(productWithId, seller);
 
