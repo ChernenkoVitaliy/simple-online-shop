@@ -8,3 +8,4 @@ spring:
     hikari:
       minimum-idle: 2
       maximum-pool-size: 5
+      data-source-properties: reWriteBatchedInserts=true
