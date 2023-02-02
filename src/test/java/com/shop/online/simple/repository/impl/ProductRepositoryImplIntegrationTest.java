@@ -15,6 +15,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -55,7 +56,7 @@ public class ProductRepositoryImplIntegrationTest {
     public void whenSaveProduct_ThenProductPresentInDataBase() {
         Product product = new Product("Some new product",
                 "Some product description",
-                1111.11);
+                BigDecimal.valueOf(1111.11));
 
         productRepository.save(product, seller);
 

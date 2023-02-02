@@ -1,11 +1,14 @@
-package com.shop.online.simple.entity;
+package com.shop.online.simple.entity.dto;
+
+import com.shop.online.simple.entity.Feedback;
+import com.shop.online.simple.entity.Tag;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class Product {
+public class ProductDTO {
     private long id;
     private String name;
     private String description;
@@ -13,16 +16,8 @@ public class Product {
     private BigDecimal price;
     private Set<Feedback> feedbacks;
 
-    public Product() {
+    public ProductDTO() {
         this.tags = new HashSet<>();
-        this.feedbacks = new HashSet<>();
-    }
-
-    public Product(String name, String description, BigDecimal price) {
-        this.name = name;
-        this.description = description;
-        this.tags = new HashSet<>();
-        this.price = price;
         this.feedbacks = new HashSet<>();
     }
 
@@ -78,8 +73,8 @@ public class Product {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
-        return id == product.id && Objects.equals(name, product.name) && Objects.equals(description, product.description) && Objects.equals(tags, product.tags) && Objects.equals(price, product.price) && Objects.equals(feedbacks, product.feedbacks);
+        ProductDTO that = (ProductDTO) o;
+        return id == that.id && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(tags, that.tags) && Objects.equals(price, that.price) && Objects.equals(feedbacks, that.feedbacks);
     }
 
     @Override

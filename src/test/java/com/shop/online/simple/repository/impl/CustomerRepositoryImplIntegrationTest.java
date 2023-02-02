@@ -5,7 +5,6 @@ import com.shop.online.simple.entity.Customer;
 import com.shop.online.simple.entity.enums.AccountStatus;
 import com.shop.online.simple.repository.CustomerRepository;
 import com.shop.online.simple.repository.rowmapper.AccountRowMapper;
-import com.shop.online.simple.repository.rowmapper.CustomerRowMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,6 +28,13 @@ public class CustomerRepositoryImplIntegrationTest {
         Optional<Customer> result = customerRepository.findOne(1L);
 
         assertTrue(result.isPresent());
+    }
+
+    @Test
+    public void whenFindOne_AndCustomerNotPresentInDataBase_ThenReturnEmptyOptional() {
+        Optional<Customer> result = customerRepository.findOne(999L);
+
+        assertTrue(result.isEmpty());
     }
 
     @Test

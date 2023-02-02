@@ -8,6 +8,7 @@ import com.shop.online.simple.service.SellerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -69,7 +70,7 @@ public class SellerServiceImplTest {
     private Product createProduct() {
         return new Product("Product name",
                 "Some product description",
-                5000L);
+                BigDecimal.valueOf(5000L));
     }
 
     private Seller createSeller() {

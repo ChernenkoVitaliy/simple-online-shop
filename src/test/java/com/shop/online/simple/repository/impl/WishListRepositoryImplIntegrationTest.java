@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -64,7 +65,7 @@ public class WishListRepositoryImplIntegrationTest {
         product.setId(2L);
         product.setName("product_name2");
         product.setDescription("product_description2");
-        product.setPrice(2000.3);
+        product.setPrice(BigDecimal.valueOf(2000.3));
 
         return product;
     }

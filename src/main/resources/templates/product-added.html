@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product added</title>
+</head>
+<body>
+
+<div>
+    <h1>Overview</h1>
+    <p>Product name: <strong th:text="${product.name}"></strong></p>
+    <p>Product description: <strong th:text="${product.description}"></strong></p>
+    <p>Product price: <strong th:text="${product.price}"></strong></p>
+    <h1>Seller</h1>
+    <p>Sellers account email: <strong th:text="${seller.accountDTO.email}"></strong></p>
+    <p>Sellers account created at: <strong th:text="${seller.accountDTO.createdAt}"></strong></p>
+    <p>Sellers account status: <strong th:text="${seller.accountDTO.accountStatus}"></strong></p>
+    <p>Seller company name: <strong th:text="${seller.companyName}"></strong></p>
+    <p>Seller company description: <strong th:text="${seller.companyDescription}"></strong></p>
+    <p>Seller site: <strong th:text="${seller.site}"></strong></p>
+</div>
+
+</body>
+</html>

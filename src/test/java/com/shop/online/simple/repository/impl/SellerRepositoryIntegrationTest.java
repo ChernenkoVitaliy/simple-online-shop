@@ -1,19 +1,14 @@
 package com.shop.online.simple.repository.impl;
 
 import com.shop.online.simple.entity.Account;
-import com.shop.online.simple.entity.Customer;
-import com.shop.online.simple.entity.Product;
 import com.shop.online.simple.entity.Seller;
 import com.shop.online.simple.entity.enums.AccountStatus;
 import com.shop.online.simple.repository.SellerRepository;
 import com.shop.online.simple.repository.rowmapper.AccountRowMapper;
-import com.shop.online.simple.repository.rowmapper.ProductRowMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -23,7 +18,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class SellerRepositoryImplTest {
+public class SellerRepositoryIntegrationTest {
     private Seller seller = createSeller();
     @Autowired
     private SellerRepository sellerRepository;
@@ -35,6 +30,13 @@ public class SellerRepositoryImplTest {
         Optional<Seller> result = sellerRepository.findOne(1L);
 
         assertTrue(result.isPresent());
+    }
+
+    @Test
+    public void whenFindOne_AndSellerNotPresentInDataBase_ThenTrue() {
+        Optional<Seller> result = sellerRepository.findOne(999L);
+
+        assertTrue(result.isEmpty());
     }
 
     @Test
