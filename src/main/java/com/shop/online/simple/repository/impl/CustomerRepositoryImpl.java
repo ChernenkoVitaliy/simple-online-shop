@@ -40,10 +40,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         final List<Customer> result = jdbcTemplate.query(SELECT_SQL + "WHERE customer.id = ?;", new CustomerRowMapper(), id);
 
         if (!result.isEmpty()) {
-            final Customer customer = result.get(0);
-            final List<Product> products = jdbcTemplate.query(SELECT_PROD_SQL, new ProductRowMapper(), customer.getId());
-
-            customer.getWishList().setProducts(products);
+            final Customer customer = populateProductsToCustomer(result);
 
             return Optional.of(customer);
         }
@@ -64,5 +61,38 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     @Override
     public void update(final Customer customer) {
         jdbcTemplate.update(UPDATE_SQL, customer.getName(), customer.getSurname(), customer.getPhone(), customer.getId());
+    }
+
+    @Override
+    public Optional<Customer> findByEmail(final String email) {
+        final List<Customer> result = jdbcTemplate.query(SELECT_SQL + "WHERE account.email = ?;", new CustomerRowMapper(), email);
+
+        if (!result.isEmpty()) {
+            final Customer customer = populateProductsToCustomer(result);
+
+            return Optional.of(customer);
+        }
+
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Customer> findByPhone(final String phone) {
+        final List<Customer> result = jdbcTemplate.query(SELECT_SQL + "WHERE customer.phone = ?;", new CustomerRowMapper(), phone);
+
+        if (!result.isEmpty()) {
+            final Customer customer = populateProductsToCustomer(result);
+
+            return Optional.of(customer);
+        }
+
+        return Optional.empty();
+    }
+
+    private Customer populateProductsToCustomer(final List<Customer> result) {
+        final Customer customer = result.get(0);
+        final List<Product> products = jdbcTemplate.query(SELECT_PROD_SQL, new ProductRowMapper(), customer.getId());
+        customer.getWishList().setProducts(products);
+        return customer;
     }
 }

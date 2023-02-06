@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -69,6 +71,8 @@ public class CustomerRepositoryImplIntegrationTest {
     }
 
     @Test
+    @Transactional
+    @Rollback
     public void whenUpdateCustomer_ThenCustomerUpdatedInDataBase() {
         Customer customerForUpdating = customerRepository.findOne(1L).get();
         customerForUpdating.setPhone("111-22-33");
@@ -77,6 +81,34 @@ public class CustomerRepositoryImplIntegrationTest {
         Customer updatedCustomer = customerRepository.findOne(1L).get();
 
         assertEquals(customerForUpdating, updatedCustomer);
+    }
+
+    @Test
+    public void whenFindByEmail_AndCustomerPresentInDataBase_ThenReturnCustomer() {
+        Optional<Customer> result = customerRepository.findByEmail("email1@mail.com");
+
+        assertTrue(result.isPresent());
+    }
+
+    @Test
+    public void whenFindByEmail_AndCustomerNotPresentInDataBase_ThenReturnEmptyOptional() {
+        Optional<Customer> result = customerRepository.findByEmail("not_exists_email@mail.com");
+
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    public void whenFindByPhone_AndCustomerPresentInDataBase_ThenReturnCustomer() {
+        Optional<Customer> result = customerRepository.findByPhone("012-345-67");
+
+        assertTrue(result.isPresent());
+    }
+
+    @Test
+    public void whenFindByPhone_AndCustomerNotPresentInDataBase_ThenReturnEmptyOptional() {
+        Optional<Customer> result = customerRepository.findByPhone("000-000-00-00");
+
+        assertTrue(result.isEmpty());
     }
 
     private Account createAccount() {

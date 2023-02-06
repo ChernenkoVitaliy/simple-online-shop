@@ -24,7 +24,7 @@ public class CustomerRowMapper implements RowMapper<Customer> {
     }
 
     private void populateAccount(final ResultSet rs, final Account account) throws SQLException {
-        account.setId(rs.getLong("account.id"));
+        account.setId(rs.getLong("account_id"));
         account.setEmail(rs.getString("email"));
         account.setPassword(rs.getString("password"));
         account.setAccountStatus(AccountStatus.valueOf(rs.getString("account_status")));
@@ -32,7 +32,7 @@ public class CustomerRowMapper implements RowMapper<Customer> {
     }
 
     private void populateAddress(final ResultSet rs, final Address address) throws SQLException {
-        address.setId(rs.getLong("address.id"));
+        address.setId(rs.getLong("address_id"));
         if (address.getId() > 0) {
             address.setCountry(rs.getString("country"));
             address.setCity(rs.getString("city"));

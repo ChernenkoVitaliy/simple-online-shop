@@ -14,4 +14,8 @@ public interface CustomerRepository {
     void save(Customer customer);
 
     void update(Customer customer);
+
+    Optional<Customer> findByEmail(String email);
+
+    Optional<Customer> findByPhone(String phone);
 }

@@ -70,4 +70,18 @@ public class AccountRepositoryImplIntegrationTest {
 
         assertTrue(result.isEmpty());
     }
+
+    @Test
+    public void whenFindOneByEmail_AndAccountPresentInDataBase_ThenTrue() {
+        Optional<Account> result = accountRepository.findByEmail("email1@mail.com");
+
+        assertTrue(result.isPresent());
+    }
+
+    @Test
+    public void whenFindOneByEmail_AndAccountNotPresentInDataBase_ThenReturnEmptyOptional() {
+        Optional<Account> result = accountRepository.findByEmail("not_exists_email@mail.com");
+
+        assertTrue(result.isEmpty());
+    }
 }
