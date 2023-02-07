@@ -3,12 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
 <h1>Welcome to Simple Online Shop.</h1>
 <p><a th:href="@{/product/add}">Add new Product</a></p>
 <p><a th:href="@{/customer/registration}">Register new Customer</a></p>
+<br />
+
+<form method="post" action="/search">
+    <label for="search">Search product by name:</label>
+    <input type="text" name="search-name" id="search" required>
+    <button type="submit" class="registerbtn">Search</button>
+</form>
+
 
 </body>
 </html>

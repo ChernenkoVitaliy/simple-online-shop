@@ -21,6 +21,13 @@ public class ProductDTO {
         this.feedbacks = new HashSet<>();
     }
 
+    public ProductDTO(long id, String name, String description, BigDecimal price) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+    }
+
     public String getName() {
         return name;
     }

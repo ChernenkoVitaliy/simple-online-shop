@@ -105,6 +105,13 @@ public class ProductRepositoryImplIntegrationTest {
         assertTrue(result.size() > 0);
     }
 
+    @Test
+    public void whenFindProductByName_AndSuchProductPresentInDataBase_ThenListReturned() {
+        List<Product> result = productRepository.findProductByName("product");
+
+        assertTrue(result.size() > 0);
+    }
+
     private Account createAccount() {
         Account account = new Account();
         account.setId(1L);
