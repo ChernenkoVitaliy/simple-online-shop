@@ -10,25 +10,25 @@
 <h3>Please fill form below</h3>
 <form method="post" th:object="${product}">
     <label for="name">Name: </label>
-    <input type="text" name="name" id="name" th:field="*{name}">
     <span class="error" th:text="${nameError}"></span>
+    <input type="text" name="name" id="name" th:field="*{name}" />
     <br/>
 
     <label for="description">Description: </label>
-    <input type="text" name="description" id="description" th:field="*{description}">
     <span class="error" th:text="${descriptionError}"></span>
+    <input type="text" name="description" id="description" th:field="*{description}">
     <br/>
 
     <label for="price">Price: </label>
-    <input type="number" step="0.01" min="0.0" name="price" id="price" value="0.0" th:field="*{price}">
     <span class="error" th:text="${priceError}"></span>
+    <input type="number" step="0.01" min="0.0" name="price" id="price" value="0.0" th:field="*{price}">
     <br/>
 
     <label for="seller-id">Seller id(it's temporary field before security): </label>
     <input type="text" name="sellerId" id="seller-id" value="1"  readonly>
     <br/>
 
-    <input class="button" type="submit" value="Submit">
+    <button type="submit" class="registerbtn">Register</button>
 </form>
 
 </body>
