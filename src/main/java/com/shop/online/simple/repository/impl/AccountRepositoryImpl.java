@@ -15,6 +15,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     private static final String INSERT_SQL = "INSERT INTO account(email, password, created_at, account_status) VALUES(?, ?, ?, ?);";
     private static final String UPDATE_SQL = "UPDATE account SET email = ?, password = ?, account_status = ? WHERE id = ?;";
     private static final String SELECT_ONE_SQL = "SELECT * FROM account WHERE id = ?;";
+    private static final String SELECT_BY_EMAIL_SQL = "SELECT * FROM account WHERE email = ?;";
     private static final String SELECT_ALL_SQL = "SELECT * FROM account;";
     private static final String DELETE_ONE_SQL = "DELETE FROM account WHERE id = ?";
     private transient final JdbcTemplate jdbcTemplate;
@@ -51,5 +52,12 @@ public class AccountRepositoryImpl implements AccountRepository {
     @Override
     public void delete(final Account account) {
         jdbcTemplate.update(DELETE_ONE_SQL, account.getId());
+    }
+
+    @Override
+    public Optional<Account> findByEmail(final String email) {
+        final List<Account> result = jdbcTemplate.query(SELECT_BY_EMAIL_SQL, new AccountRowMapper(), email);
+
+        return result.isEmpty() ? Optional.empty() : Optional.of(result.get(0));
     }
 }

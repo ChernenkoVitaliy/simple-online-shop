@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Registration Done</title>
+</head>
+<body>
+
+<h1>Customer info</h1>
+<p>Customer ID: <strong th:text="${customer.id}"></strong></p>
+<p>Customer NAME: <strong th:text="${customer.name}"></strong></p>
+<p>Customer SURNAME: <strong th:text="${customer.surname}"></strong></p>
+<p>Customer EMAIL: <strong th:text="${customer.accountDTO.email}"></strong></p>
+<p>Customer PHONE: <strong th:text="${customer.phone}"></strong></p>
+
+</body>
+</html>

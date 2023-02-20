@@ -15,6 +15,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -55,7 +56,7 @@ public class ProductRepositoryImplIntegrationTest {
     public void whenSaveProduct_ThenProductPresentInDataBase() {
         Product product = new Product("Some new product",
                 "Some product description",
-                1111.11);
+                BigDecimal.valueOf(1111.11));
 
         productRepository.save(product, seller);
 
@@ -100,6 +101,13 @@ public class ProductRepositoryImplIntegrationTest {
         Tag tag = jdbcTemplate.query("SELECT * FROM tag WHERE id = ?", new TagRowMapper(), 1L).get(0);
 
         List<Product> result = productRepository.findProductsByTag(tag);
+
+        assertTrue(result.size() > 0);
+    }
+
+    @Test
+    public void whenFindProductByName_AndSuchProductPresentInDataBase_ThenListReturned() {
+        List<Product> result = productRepository.findProductByName("product");
 
         assertTrue(result.size() > 0);
     }

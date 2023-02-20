@@ -23,4 +23,6 @@ public interface ProductRepository {
 
     List<Product> findProductsByTag(Tag tag);
 
+    List<Product> findProductByName(String name);
+
 }

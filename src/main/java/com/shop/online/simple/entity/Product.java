@@ -1,5 +1,6 @@
 package com.shop.online.simple.entity;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -9,7 +10,7 @@ public class Product {
     private String name;
     private String description;
     private Set<Tag> tags;
-    private double price;
+    private BigDecimal price;
     private Set<Feedback> feedbacks;
 
     public Product() {
@@ -17,7 +18,7 @@ public class Product {
         this.feedbacks = new HashSet<>();
     }
 
-    public Product(String name, String description, double price) {
+    public Product(String name, String description, BigDecimal price) {
         this.name = name;
         this.description = description;
         this.tags = new HashSet<>();
@@ -49,11 +50,11 @@ public class Product {
         this.tags = tags;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -78,7 +79,7 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return id == product.id && Double.compare(product.price, price) == 0 && name.equals(product.name) && description.equals(product.description) && Objects.equals(tags, product.tags) && Objects.equals(feedbacks, product.feedbacks);
+        return id == product.id && Objects.equals(name, product.name) && Objects.equals(description, product.description) && Objects.equals(tags, product.tags) && Objects.equals(price, product.price) && Objects.equals(feedbacks, product.feedbacks);
     }
 
     @Override

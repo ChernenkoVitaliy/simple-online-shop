@@ -112,6 +112,11 @@
     <rule ref="category/java/codestyle.xml/LocalInterfaceSessionNamingConvention" />
     <rule ref="category/java/codestyle.xml/LocalVariableCouldBeFinal" />
     <rule ref="category/java/codestyle.xml/LongVariable" />
+    <rule ref="category/java/codestyle.xml/LongVariable">
+        <properties>
+            <property name="minimum" value="25" />
+        </properties>
+    </rule>
     <rule ref="category/java/codestyle.xml/MDBAndSessionBeanNamingConvention" />
     <rule ref="category/java/codestyle.xml/MethodArgumentCouldBeFinal" />
     <rule ref="category/java/codestyle.xml/MethodNamingConventions" />
@@ -331,7 +336,7 @@
     <rule ref="category/java/errorprone.xml/AvoidDuplicateLiterals">
         <properties>
             <property name="separator" value="," />
-            <property name="maxDuplicateLiterals" value="2" />
+            <property name="maxDuplicateLiterals" value="4" />
             <property name="minimumLength" value="3" />
             <property name="skipAnnotations" value="false" />
             <property name="exceptionList" value="" />

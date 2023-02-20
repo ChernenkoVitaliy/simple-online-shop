@@ -12,6 +12,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
+import java.math.BigDecimal;
+
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -137,7 +139,7 @@ public class CustomerServiceImplTest {
     }
 
     private Product createProduct() {
-        return new Product("Product name", "Some product description", 10_000L);
+        return new Product("Product name", "Some product description", BigDecimal.valueOf(10_000L));
     }
 
     private Account createAccount() {

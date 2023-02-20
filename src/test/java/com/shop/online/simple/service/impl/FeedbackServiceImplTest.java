@@ -10,6 +10,7 @@ import com.shop.online.simple.service.FeedbackService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -59,7 +60,7 @@ public class FeedbackServiceImplTest {
     }
 
     private Product createProduct() {
-        return new Product("Product name", "Some product description", 10_000L);
+        return new Product("Product name", "Some product description", BigDecimal.valueOf(10_000L));
     }
 
     private Account createAccount() {

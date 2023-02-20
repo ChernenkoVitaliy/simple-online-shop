@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new product</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<h3>Please fill form below</h3>
+<form method="post" th:object="${product}">
+    <label for="name">Name: </label>
+    <span class="error" th:text="${nameError}"></span>
+    <input type="text" name="name" id="name" th:field="*{name}" />
+    <br/>
+
+    <label for="description">Description: </label>
+    <span class="error" th:text="${descriptionError}"></span>
+    <input type="text" name="description" id="description" th:field="*{description}">
+    <br/>
+
+    <label for="price">Price: </label>
+    <span class="error" th:text="${priceError}"></span>
+    <input type="number" step="0.01" min="0.0" name="price" id="price" value="0.0" th:field="*{price}">
+    <br/>
+
+    <label for="seller-id">Seller id(it's temporary field before security): </label>
+    <input type="text" name="sellerId" id="seller-id" value="1"  readonly>
+    <br/>
+
+    <button type="submit" class="registerbtn">Register</button>
+</form>
+
+</body>
+</html>

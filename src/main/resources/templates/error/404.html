@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>404 - resource not found</title>
+</head>
+<body>
+<h1>Resource Not Found - 404</h1>
+<p>Requested resource was not found. Please contact the administrator.</p>
+<ul>
+    <li>Timestamp: <span th:text="${timestamp}">Timestamp</span></li>
+    <li>Path: <span th:text="${path}">Path</span></li>
+    <li>Error: <span th:text="${error}">Error</span></li>
+</ul>
+</body>
+</html>

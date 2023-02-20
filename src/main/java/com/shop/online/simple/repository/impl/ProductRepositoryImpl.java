@@ -68,4 +68,9 @@ public class ProductRepositoryImpl implements ProductRepository {
     public List<Product> findProductsByTag(final Tag tag) {
         return jdbcTemplate.query(SELECT_SQL + "WHERE tag_id = ?;", new ProductRowMapper(), tag.getId());
     }
+
+    @Override
+    public List<Product> findProductByName(final String name) {
+        return jdbcTemplate.query(SELECT_SQL + "WHERE LOWER(product.name) LIKE LOWER(?);", new ProductRowMapper(), "%" + name + "%");
+    }
 }
