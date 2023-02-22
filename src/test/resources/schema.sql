@@ -1,5 +1,5 @@
 CREATE TABLE account(
-    id             SERIAL PRIMARY KEY,
+    id             BIGSERIAL PRIMARY KEY,
     email          VARCHAR(128) UNIQUE NOT NULL,
     password       VARCHAR(50)         NOT NULL,
     created_at     TIMESTAMP           NOT NULL,
@@ -7,15 +7,15 @@ CREATE TABLE account(
 );
 
 CREATE TABLE address(
-    id      SERIAL PRIMARY KEY,
+    id      BIGSERIAL PRIMARY KEY,
     country VARCHAR(128) NOT NULL,
     city    VARCHAR(128) NOT NULL,
     street  VARCHAR(128) NOT NULL
 );
 
 CREATE TABLE seller(
-    id                  SERIAL PRIMARY KEY,
-    account_id          INT          NOT NULL,
+    id                  BIGSERIAL PRIMARY KEY,
+    account_id          BIGINT       NOT NULL,
     company_name        VARCHAR(128) NOT NULL,
     company_description TEXT         NOT NULL,
     company_site        VARCHAR(128),
@@ -27,9 +27,9 @@ CREATE TABLE seller(
 );
 
 CREATE TABLE seller_phones(
-    id        SERIAL PRIMARY KEY,
+    id        BIGSERIAL PRIMARY KEY,
     phone     VARCHAR(11) UNIQUE NOT NULL,
-    seller_id INT                NOT NULL,
+    seller_id BIGINT             NOT NULL,
     CONSTRAINT fk_seller_phones_seller_id
         FOREIGN KEY (seller_id)
             REFERENCES seller (id)
@@ -38,12 +38,12 @@ CREATE TABLE seller_phones(
 );
 
 CREATE TABLE customer(
-    id         SERIAL PRIMARY KEY,
-    account_id INT                 NOT NULL,
+    id         BIGSERIAL PRIMARY KEY,
+    account_id BIGINT              NOT NULL,
     name       VARCHAR(128)        NOT NULL,
     surname    VARCHAR(128)        NOT NULL,
     phone      VARCHAR(128) UNIQUE NOT NULL,
-    address_id INT,
+    address_id BIGINT,
     CONSTRAINT fk_customer_account_id
         FOREIGN KEY (account_id)
             REFERENCES account (id)
@@ -57,17 +57,17 @@ CREATE TABLE customer(
 );
 
 CREATE TABLE tag(
-    id          SERIAL PRIMARY KEY,
+    id          BIGSERIAL PRIMARY KEY,
     name        VARCHAR(128) UNIQUE NOT NULL,
     description VARCHAR(128)        NOT NULL
 );
 
 CREATE TABLE product(
-    id          SERIAL PRIMARY KEY,
+    id          BIGSERIAL PRIMARY KEY,
     name        VARCHAR(256)  NOT NULL,
     description TEXT          NOT NULL,
     price       NUMERIC(10, 2) NOT NULL,
-    seller_id   INT           NOT NULL,
+    seller_id   BIGINT        NOT NULL,
     CONSTRAINT fk_product_seller_id
         FOREIGN KEY (seller_id)
             REFERENCES seller (id)
@@ -76,11 +76,11 @@ CREATE TABLE product(
 );
 
 CREATE TABLE feedback(
-    id            SERIAL PRIMARY KEY,
-    account_id    INT       DEFAULT NULL,
+    id            BIGSERIAL PRIMARY KEY,
+    account_id    BIGINT    NOT NULL,
     feedback_text TEXT      NOT NULL,
     created_at    TIMESTAMP NOT NULL,
-    product_id    INT       NOT NULL,
+    product_id    BIGINT    NOT NULL,
     CONSTRAINT fk_feedback_account_id
         FOREIGN KEY (account_id)
             REFERENCES account (id)
@@ -94,8 +94,8 @@ CREATE TABLE feedback(
 );
 
 CREATE TABLE cart(
-    id          SERIAL PRIMARY KEY,
-    customer_id INT       NOT NULL,
+    id          BIGSERIAL PRIMARY KEY,
+    customer_id BIGINT    NOT NULL,
     CONSTRAINT fk_cart_customer_id
         FOREIGN KEY (customer_id)
             REFERENCES customer (id)
@@ -104,10 +104,10 @@ CREATE TABLE cart(
 );
 
 CREATE TABLE orders(
-    id           SERIAL PRIMARY KEY,
+    id           BIGSERIAL PRIMARY KEY,
     created_at   TIMESTAMP    NOT NULL,
     order_status VARCHAR(128) NOT NULL,
-    customer_id  INT          NOT NULL,
+    customer_id  BIGINT       NOT NULL,
     CONSTRAINT fk_order_customer_id
         FOREIGN KEY (customer_id)
             REFERENCES customer (id)
@@ -116,9 +116,9 @@ CREATE TABLE orders(
 );
 
 CREATE TABLE delivery(
-    id            SERIAL PRIMARY KEY,
-    order_id      INT       NOT NULL,
-    customer_id   INT       NOT NULL,
+    id            BIGSERIAL PRIMARY KEY,
+    order_id      BIGINT    NOT NULL,
+    customer_id   BIGINT    NOT NULL,
     created_at    TIMESTAMP NOT NULL,
     delivery_date TIMESTAMP NULL,
     delivered_at  TIMESTAMP NULL,
@@ -135,8 +135,8 @@ CREATE TABLE delivery(
 );
 
 CREATE TABLE orders_products(
-    order_id   INT NOT NULL,
-    product_id INT NOT NULL,
+    order_id   BIGINT NOT NULL,
+    product_id BIGINT NOT NULL,
     PRIMARY KEY (order_id, product_id),
     CONSTRAINT fk_orders_products_order_id
         FOREIGN KEY (order_id)
@@ -151,8 +151,8 @@ CREATE TABLE orders_products(
 );
 
 CREATE TABLE wish_list_product_customer(
-    product_id  INT NOT NULL,
-    customer_id INT NOT NULL,
+    product_id  BIGINT NOT NULL,
+    customer_id BIGINT NOT NULL,
     PRIMARY KEY (product_id, customer_id),
     CONSTRAINT fk_wish_list_product_customer_product_id
         FOREIGN KEY (product_id)
@@ -167,8 +167,8 @@ CREATE TABLE wish_list_product_customer(
 );
 
 CREATE TABLE products_tags(
-    product_id INT NOT NULL,
-    tag_id     INT NOT NULL,
+    product_id BIGINT NOT NULL,
+    tag_id     BIGINT NOT NULL,
     PRIMARY KEY (product_id, tag_id),
     CONSTRAINT fk_products_tags_product_id
         FOREIGN KEY (product_id)
@@ -183,8 +183,8 @@ CREATE TABLE products_tags(
 );
 
 CREATE TABLE carts_products(
-    cart_id    INT NOT NULL,
-    product_id INT NOT NULL,
+    cart_id    BIGINT NOT NULL,
+    product_id BIGINT NOT NULL,
     PRIMARY KEY (cart_id, product_id),
     CONSTRAINT fk_carts_products_cart_id
         FOREIGN KEY (cart_id)

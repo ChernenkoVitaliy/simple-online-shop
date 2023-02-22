@@ -1,14 +1,34 @@
 package com.shop.online.simple.entity;
 
+import javax.persistence.*;
 import java.util.*;
 
+@Entity
+@Table(name = "seller")
 public class Seller {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "account_id")
     private Account account;
+
+    @Column(name = "company_name", nullable = false)
     private String companyName;
+
+    @Column(name = "company_description", nullable = false)
     private String companyDescription;
-    private Set<String> phones;
+
+    @Column(name = "company_site")
     private String site;
+
+    @ElementCollection
+    @CollectionTable(name = "seller_phones")
+    @Column(name = "phone", unique = true, nullable = false)
+    private Set<String> phones;
+
+    @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
     private List<Product> products;
 
     public Seller() {}

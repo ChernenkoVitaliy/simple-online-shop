@@ -12,7 +12,6 @@ import java.util.Objects;
 public class SearchServiceImpl implements SearchService {
     private final transient ProductRepository productRepository;
 
-
     public SearchServiceImpl(final ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
@@ -21,6 +20,6 @@ public class SearchServiceImpl implements SearchService {
     public List<Product> searchProductByName(final String name) {
         Objects.requireNonNull(name, "Name of product must not be null.");
 
-        return productRepository.findProductByName(name);
+        return productRepository.findByNameContainsIgnoreCase(name);
     }
 }

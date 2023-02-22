@@ -53,7 +53,7 @@ public class ProductController {
         }
 
         final Product product = productDTOMapper.toProduct(productCreationDTO);
-        final Seller seller = sellerRepository.findOne(productCreationDTO.getSellerId()).get();
+        final Seller seller = sellerRepository.findById(productCreationDTO.getSellerId()).get();
         final Product addedProduct = sellerService.addNewProduct(product, seller);
         final ProductDTO productDTO = productDTOMapper.toProductDTO(addedProduct);
         final SellerDTO sellerDTO = sellerDTOMapper.toSellerDTO(seller);

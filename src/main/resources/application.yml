@@ -9,3 +9,8 @@ spring:
       minimum-idle: 2
       maximum-pool-size: 5
       data-source-properties: reWriteBatchedInserts=true
+  jpa:
+    database: postgresql
+    show-sql: true
+    hibernate:
+      ddl-auto: validate

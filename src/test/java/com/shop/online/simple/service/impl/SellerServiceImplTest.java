@@ -13,7 +13,9 @@ import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class SellerServiceImplTest {
     private SellerService sellerService;
@@ -31,6 +33,7 @@ public class SellerServiceImplTest {
 
     @Test
     public void whenAddNewProduct_thenReturnProduct() {
+        when(productRepository.save(any())).thenReturn(productWithId);
 
         var addedProduct = sellerService.addNewProduct(newProduct, seller);
 

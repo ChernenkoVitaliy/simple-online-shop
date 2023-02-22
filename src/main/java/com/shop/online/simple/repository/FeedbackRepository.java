@@ -1,18 +1,7 @@
 package com.shop.online.simple.repository;
 
 import com.shop.online.simple.entity.Feedback;
-import com.shop.online.simple.entity.Product;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-import java.util.Optional;
-
-public interface FeedbackRepository{
-
-    Optional<Feedback> findOne(long id);
-
-    List<Feedback> findAll();
-
-    void save(Feedback feedback, Product product);
-
-    void delete(Feedback feedback);
+public interface FeedbackRepository extends JpaRepository<Feedback, Long> {
 }

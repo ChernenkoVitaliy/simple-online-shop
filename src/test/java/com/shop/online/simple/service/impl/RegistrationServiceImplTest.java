@@ -4,8 +4,6 @@ import com.shop.online.simple.entity.Account;
 import com.shop.online.simple.entity.Customer;
 import com.shop.online.simple.repository.AccountRepository;
 import com.shop.online.simple.repository.CustomerRepository;
-import com.shop.online.simple.repository.impl.AccountRepositoryImpl;
-import com.shop.online.simple.repository.impl.CustomerRepositoryImpl;
 import com.shop.online.simple.service.RegistrationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,23 +18,21 @@ import static org.mockito.Mockito.when;
 
 public class RegistrationServiceImplTest {
     private RegistrationService registrationService;
-    private AccountRepository accountRepository = mock(AccountRepositoryImpl.class);
-    private CustomerRepository customerRepository = mock(CustomerRepositoryImpl.class);
+    private CustomerRepository customerRepository = mock(CustomerRepository.class);
     private Account account = createAccount();
     private Customer customer;
     private Customer customerWithId;
 
     @BeforeEach
     public void setUp() {
-        registrationService = new RegistrationServiceImpl(accountRepository, customerRepository);
+        registrationService = new RegistrationServiceImpl(customerRepository);
         customerWithId = createCustomer();
         customerWithId.setId(1L);
     }
 
     @Test
     public void whenCreateNewCustomer_ThenReturnCustomerWithId() {
-        when(accountRepository.findByEmail(any())).thenReturn(Optional.of(account));
-        when(customerRepository.findByEmail(any())).thenReturn(Optional.of(customerWithId));
+        when(customerRepository.save(any())).thenReturn(customerWithId);
         customer = createCustomer();
 
         Customer result = registrationService.createNewCustomer(customer);

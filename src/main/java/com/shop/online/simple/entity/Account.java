@@ -2,14 +2,28 @@ package com.shop.online.simple.entity;
 
 import com.shop.online.simple.entity.enums.AccountStatus;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Entity
+@Table(name = "account")
 public class Account {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    @Column(unique = true, nullable = false)
     private String email;
+
+    @Column(nullable = false)
     private String password;
+
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
+
+    @Column(name = "account_status", nullable = false)
+    @Enumerated(EnumType.STRING)
     private AccountStatus accountStatus;
 
     public Account() {}

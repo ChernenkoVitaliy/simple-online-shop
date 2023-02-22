@@ -6,12 +6,16 @@ import com.shop.online.simple.entity.dto.CustomerCreationDTO;
 import com.shop.online.simple.entity.dto.CustomerDTO;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Collectors;
+
 @Component
 public class CustomerDTOMapper {
     private final transient AccountDTOMapper accountDTOMapper;
+    private final transient ProductDTOMapper productDTOMapper;
 
-    public CustomerDTOMapper(AccountDTOMapper accountDTOMapper) {
+    public CustomerDTOMapper(final AccountDTOMapper accountDTOMapper, final ProductDTOMapper productDTOMapper) {
         this.accountDTOMapper = accountDTOMapper;
+        this.productDTOMapper = productDTOMapper;
     }
 
     public Customer toCustomer(final CustomerCreationDTO customerCreationDTO) {
@@ -34,7 +38,7 @@ public class CustomerDTOMapper {
         customerDTO.setPhone(customer.getPhone());
         customerDTO.setDeliveryAddress(customer.getDeliveryAddress());
         customerDTO.setCart(customer.getCart());
-        customerDTO.setWishList(customer.getWishList());
+        customerDTO.setWishList(customer.getWishList().stream().map(productDTOMapper::toProductDTO).collect(Collectors.toList()));
 
         return customerDTO;
     }

@@ -1,11 +1,22 @@
 package com.shop.online.simple.entity;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "address")
 public class Address {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    @Column(nullable = false)
     private String country;
+
+    @Column(nullable = false)
     private String city;
+
+    @Column(nullable = false)
     private String street;
 
     public Address() {

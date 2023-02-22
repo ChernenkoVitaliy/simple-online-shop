@@ -1,21 +1,10 @@
 package com.shop.online.simple.repository;
 
-
 import com.shop.online.simple.entity.Customer;
-
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
-public interface CustomerRepository {
-    Optional<Customer> findOne(long id);
-
-    List<Customer> findAll();
-
-    void save(Customer customer);
-
-    void update(Customer customer);
-
-    Optional<Customer> findByEmail(String email);
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     Optional<Customer> findByPhone(String phone);
 }

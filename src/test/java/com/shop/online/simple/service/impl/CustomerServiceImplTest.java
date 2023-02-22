@@ -5,8 +5,8 @@ import com.shop.online.simple.entity.enums.OrderStatus;
 import com.shop.online.simple.exception.EmptyCartException;
 import com.shop.online.simple.exception.ProductAlreadyAddedException;
 import com.shop.online.simple.repository.CartRepository;
+import com.shop.online.simple.repository.CustomerRepository;
 import com.shop.online.simple.repository.OrderRepository;
-import com.shop.online.simple.repository.WishListRepository;
 import com.shop.online.simple.service.CustomerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,9 +20,8 @@ import static org.mockito.Mockito.mock;
 
 public class CustomerServiceImplTest {
     private CustomerService customerService;
-    private CartRepository cartRepository = mock(CartRepository.class);
+    private CustomerRepository customerRepository = mock(CustomerRepository.class);
     private OrderRepository orderRepository = mock(OrderRepository.class);
-    private WishListRepository wishListRepository = mock(WishListRepository.class);
     private Product product;
     private Account account;
     private Customer customer;
@@ -30,7 +29,7 @@ public class CustomerServiceImplTest {
 
     @BeforeEach
     public void setUp() {
-        customerService = new CustomerServiceImpl(cartRepository, orderRepository, wishListRepository);
+        customerService = new CustomerServiceImpl(customerRepository, orderRepository);
         product = createProduct();
         account = createAccount();
         customer = createCustomer();
@@ -76,8 +75,10 @@ public class CustomerServiceImplTest {
     }
 
     @Test
-    public void whenDeleteProductFromCart_AndCartDoNotContainsThisProduct_ThenReturnFalse() {
-        var result = customerService.deleteProductFromCart(product, customer);
+    public void whenDeleteProductFromCart_ThenCartDoNotContainsCurrentProduct() {
+        customerService.deleteProductFromCart(product, customer);
+
+        var result = customer.getCart().getProducts().contains(product);
 
         assertFalse(result);
     }
@@ -115,7 +116,7 @@ public class CustomerServiceImplTest {
     public void whenAddProductToWishList_ThenProductPresentInWishList() {
         var result = customerService.addProductToWishList(product, customer);
 
-        assertTrue(result.getProducts().contains(product));
+        assertTrue(result.contains(product));
     }
 
     @Test

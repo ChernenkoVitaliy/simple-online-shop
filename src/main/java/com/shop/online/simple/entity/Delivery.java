@@ -1,14 +1,35 @@
 package com.shop.online.simple.entity;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Entity
+@Table(name = "delivery")
 public class Delivery {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id", nullable = false)
     private Order order;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
+
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
+
+    @Column(name = "delivery_date")
     private LocalDateTime deliveryDate;
+
+    @Column(name = "delivered_at")
     private LocalDateTime deliveredAt;
+
+    public Delivery() {
+    }
 
     public Delivery(Order order, Customer customer, LocalDateTime createdAt, LocalDateTime deliveryDate, LocalDateTime deliveredAt) {
         this.order = order;
@@ -16,6 +37,14 @@ public class Delivery {
         this.createdAt = createdAt;
         this.deliveryDate = deliveryDate;
         this.deliveredAt = deliveredAt;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Order getOrder() {
@@ -63,11 +92,11 @@ public class Delivery {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Delivery delivery = (Delivery) o;
-        return order.equals(delivery.order) && customer.equals(delivery.customer) && createdAt.equals(delivery.createdAt) && deliveryDate.equals(delivery.deliveryDate) && Objects.equals(deliveredAt, delivery.deliveredAt);
+        return id == delivery.id && order.equals(delivery.order) && customer.equals(delivery.customer) && createdAt.equals(delivery.createdAt) && deliveryDate.equals(delivery.deliveryDate) && Objects.equals(deliveredAt, delivery.deliveredAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(order, customer, createdAt, deliveryDate, deliveredAt);
+        return Objects.hash(id, order, customer, createdAt, deliveryDate, deliveredAt);
     }
 }
