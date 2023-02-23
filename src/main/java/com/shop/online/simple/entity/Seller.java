@@ -7,7 +7,8 @@ import java.util.*;
 @Table(name = "seller")
 public class Seller {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seller_generator")
+    @SequenceGenerator(name = "seller_generator", sequenceName = "seller_id_seq", allocationSize = 1)
     private long id;
 
     @OneToOne(cascade = CascadeType.ALL)

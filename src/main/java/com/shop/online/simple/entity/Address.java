@@ -7,7 +7,8 @@ import java.util.Objects;
 @Table(name = "address")
 public class Address {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_generator")
+    @SequenceGenerator(name = "address_generator", sequenceName = "address_id_seq", allocationSize = 1)
     private long id;
 
     @Column(nullable = false)

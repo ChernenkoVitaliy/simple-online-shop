@@ -7,7 +7,8 @@ import java.util.*;
 @Table(name = "customer")
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_generator")
+    @SequenceGenerator(name = "customer_generator", sequenceName = "customer_id_seq", allocationSize = 1)
     private long id;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -40,8 +41,6 @@ public class Customer {
     private Set<Order> orders;
 
     public Customer() {
-        this.cart = new Cart();
-        this.wishList = new ArrayList<>();
     }
 
     public Customer(Account account, String name, String surname, String phone) {
@@ -94,7 +93,7 @@ public class Customer {
     }
 
     public Cart getCart() {
-        return cart;
+        return cart == null ? new Cart() : cart;
     }
 
     public void setCart(Cart cart) {
@@ -109,13 +108,20 @@ public class Customer {
         this.deliveryAddress = deliveryAddress;
     }
 
-
     public List<Product> getWishList() {
-        return wishList;
+        return wishList == null ? new ArrayList<>() : wishList;
     }
 
     public void setWishList(List<Product> wishList) {
         this.wishList = wishList;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 
     @Override

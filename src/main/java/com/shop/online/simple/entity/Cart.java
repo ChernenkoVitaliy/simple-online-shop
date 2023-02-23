@@ -10,7 +10,8 @@ import java.util.Objects;
 @Table(name = "cart")
 public class Cart {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cart_generator")
+    @SequenceGenerator(name = "cart_generator", sequenceName = "cart_id_seq", allocationSize = 1)
     private long id;
 
     @OneToOne(cascade = CascadeType.ALL)

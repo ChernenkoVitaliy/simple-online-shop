@@ -8,7 +8,8 @@ import java.util.Objects;
 @Table(name = "feedback")
 public class Feedback {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "feedback_generator")
+    @SequenceGenerator(name = "feedback_generator", sequenceName = "feedback_id_seq", allocationSize = 1)
     private long id;
 
     @ManyToOne
