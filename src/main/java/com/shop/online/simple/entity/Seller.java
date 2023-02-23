@@ -11,7 +11,7 @@ public class Seller {
     @SequenceGenerator(name = "seller_generator", sequenceName = "seller_id_seq", allocationSize = 1)
     private long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
     private Account account;
 
@@ -24,22 +24,22 @@ public class Seller {
     @Column(name = "company_site")
     private String site;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "seller_phones")
     @Column(name = "phone", unique = true, nullable = false)
     private Set<String> phones;
 
-    @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Product> products;
 
     public Seller() {}
 
-    public Seller(Account account, String companyName, String companyDescription, Set<String> phones, String site) {
+    public Seller(Account account, String companyName, String companyDescription, String site, Set<String> phones) {
         this.account = account;
         this.companyName = companyName;
         this.companyDescription = companyDescription;
-        this.phones = phones;
         this.site = site;
+        this.phones = phones;
         this.products = new ArrayList<>();
     }
 
@@ -104,11 +104,11 @@ public class Seller {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Seller seller = (Seller) o;
-        return id == seller.id && account.equals(seller.account) && companyName.equals(seller.companyName) && companyDescription.equals(seller.companyDescription) && phones.equals(seller.phones) && Objects.equals(site, seller.site) && Objects.equals(products, seller.products);
+        return id == seller.id && account.equals(seller.account) && companyName.equals(seller.companyName) && companyDescription.equals(seller.companyDescription) && site.equals(seller.site) && phones.equals(seller.phones);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, account, companyName, companyDescription, phones, site, products);
+        return Objects.hash(id, account, companyName, companyDescription, site, phones);
     }
 }

@@ -32,14 +32,6 @@ public class Delivery {
     public Delivery() {
     }
 
-    public Delivery(Order order, Customer customer, LocalDateTime createdAt, LocalDateTime deliveryDate, LocalDateTime deliveredAt) {
-        this.order = order;
-        this.customer = customer;
-        this.createdAt = createdAt;
-        this.deliveryDate = deliveryDate;
-        this.deliveredAt = deliveredAt;
-    }
-
     public long getId() {
         return id;
     }
@@ -93,11 +85,11 @@ public class Delivery {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Delivery delivery = (Delivery) o;
-        return id == delivery.id && order.equals(delivery.order) && customer.equals(delivery.customer) && createdAt.equals(delivery.createdAt) && deliveryDate.equals(delivery.deliveryDate) && Objects.equals(deliveredAt, delivery.deliveredAt);
+        return id == delivery.id && order.equals(delivery.order) && customer.equals(delivery.customer);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, order, customer, createdAt, deliveryDate, deliveredAt);
+        return Objects.hash(id, order, customer);
     }
 }

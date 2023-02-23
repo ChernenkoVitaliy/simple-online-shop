@@ -11,7 +11,7 @@ public class Customer {
     @SequenceGenerator(name = "customer_generator", sequenceName = "customer_id_seq", allocationSize = 1)
     private long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
     private Account account;
 
@@ -24,20 +24,20 @@ public class Customer {
     @Column(nullable = false, unique = true)
     private String phone;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id")
     private Address deliveryAddress;
 
-    @OneToOne(mappedBy = "customer")
+    @OneToOne(mappedBy = "customer", fetch = FetchType.LAZY)
     private Cart cart;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "wish_list_product_customer",
             joinColumns = {@JoinColumn(name = "customer_id")},
             inverseJoinColumns = {@JoinColumn(name = "product_id")})
     private List<Product> wishList;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Order> orders;
 
     public Customer() {
@@ -50,6 +50,7 @@ public class Customer {
         this.phone = phone;
         this.cart = new Cart();
         this.wishList = new ArrayList<>();
+        this.orders = new HashSet<>();
     }
 
     public long getId() {
@@ -117,7 +118,7 @@ public class Customer {
     }
 
     public Set<Order> getOrders() {
-        return orders;
+        return orders == null ? new HashSet<>() : orders;
     }
 
     public void setOrders(Set<Order> orders) {
@@ -129,11 +130,11 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return id == customer.id && account.equals(customer.account) && name.equals(customer.name) && surname.equals(customer.surname) && phone.equals(customer.phone);
+        return id == customer.id && account.equals(customer.account) && name.equals(customer.name) && surname.equals(customer.surname) && phone.equals(customer.phone) && Objects.equals(deliveryAddress, customer.deliveryAddress);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, account, name, surname, phone);
+        return Objects.hash(id, account, name, surname, phone, deliveryAddress);
     }
 }

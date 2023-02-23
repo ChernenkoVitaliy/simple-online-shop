@@ -17,7 +17,7 @@ CREATE TABLE seller(
     id                  BIGSERIAL PRIMARY KEY,
     account_id          BIGINT       NOT NULL,
     company_name        VARCHAR(128) NOT NULL,
-    company_description TEXT         NOT NULL,
+    company_description VARCHAR(500) NOT NULL,
     company_site        VARCHAR(128),
     CONSTRAINT fk_seller_account_id
         FOREIGN KEY (account_id)
@@ -65,7 +65,7 @@ CREATE TABLE tag(
 CREATE TABLE product(
     id          BIGSERIAL PRIMARY KEY,
     name        VARCHAR(256)  NOT NULL,
-    description TEXT          NOT NULL,
+    description VARCHAR(3000) NOT NULL,
     price       NUMERIC(10, 2) NOT NULL,
     seller_id   BIGINT        NOT NULL,
     CONSTRAINT fk_product_seller_id
@@ -78,7 +78,7 @@ CREATE TABLE product(
 CREATE TABLE feedback(
     id            BIGSERIAL PRIMARY KEY,
     account_id    BIGINT    NOT NULL,
-    feedback_text TEXT      NOT NULL,
+    feedback_text VARCHAR(3000) NOT NULL,
     created_at    TIMESTAMP NOT NULL,
     product_id    BIGINT    NOT NULL,
     CONSTRAINT fk_feedback_account_id
@@ -197,3 +197,58 @@ CREATE TABLE carts_products(
             ON DELETE CASCADE
             ON UPDATE CASCADE
 );
+
+CREATE SEQUENCE account_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 1;
+
+CREATE SEQUENCE address_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 1;
+
+CREATE SEQUENCE cart_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 1;
+
+CREATE SEQUENCE customer_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 1;
+
+CREATE SEQUENCE delivery_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 1;
+
+CREATE SEQUENCE feedback_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 1;
+
+CREATE SEQUENCE orders_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 1;
+
+CREATE SEQUENCE product_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 1;
+
+CREATE SEQUENCE seller_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 1;
+
+CREATE SEQUENCE seller_phones_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 1;
+
+CREATE SEQUENCE tag_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 1;

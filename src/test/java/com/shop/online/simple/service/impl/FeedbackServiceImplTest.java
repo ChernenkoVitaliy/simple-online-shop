@@ -22,7 +22,7 @@ public class FeedbackServiceImplTest {
     private Account account = createAccount();
     private Customer author = createCustomer();
     private Product product = createProduct();
-    private Feedback feedback = new Feedback(author, "Some feedbacks text", LocalDateTime.now());
+    private Feedback feedback = new Feedback("Some feedbacks text", LocalDateTime.now());
     private Feedback feedbackWithId;
 
     @BeforeEach

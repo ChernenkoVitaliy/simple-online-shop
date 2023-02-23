@@ -20,6 +20,6 @@ public class SearchServiceImpl implements SearchService {
     public List<Product> searchProductByName(final String name) {
         Objects.requireNonNull(name, "Name of product must not be null.");
 
-        return productRepository.findByNameContainsIgnoreCase(name);
+        return productRepository.findAllByNameContainsIgnoreCase(name);
     }
 }

@@ -1,7 +1,6 @@
 package com.shop.online.simple.entity;
 
 import javax.persistence.*;
-import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -57,11 +56,11 @@ public class Cart {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cart cart = (Cart) o;
-        return id == cart.id && Objects.equals(products, cart.products) && Objects.equals(customer, cart.customer);
+        return id == cart.id && customer.getId() == cart.customer.getId();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, products, customer);
+        return Objects.hash(id, customer.getId());
     }
 }

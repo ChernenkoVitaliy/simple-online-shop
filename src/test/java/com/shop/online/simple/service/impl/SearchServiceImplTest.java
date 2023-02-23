@@ -27,7 +27,7 @@ public class SearchServiceImplTest {
 
     @Test
     public void whenSearchProductByName_AndProductPrent_ThenReturnListOfProducts() {
-        when(productRepository.findByNameContainsIgnoreCase(any())).thenReturn(createProductsList());
+        when(productRepository.findAllByNameContainsIgnoreCase(any())).thenReturn(createProductsList());
 
         List<Product> result = searchService.searchProductByName("name");
 
@@ -36,7 +36,7 @@ public class SearchServiceImplTest {
 
     @Test
     public void whenSearchProductByName_AndProductNotPrent_ThenReturnEmptyList() {
-        when(productRepository.findByName(any())).thenReturn(Collections.emptyList());
+        when(productRepository.findAllByNameContainsIgnoreCase(any())).thenReturn(Collections.emptyList());
 
         List<Product> result = searchService.searchProductByName("name");
 

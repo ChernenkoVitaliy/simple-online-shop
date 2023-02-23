@@ -28,8 +28,7 @@ public class Feedback {
 
     public Feedback() {}
 
-    public Feedback(Customer author, String text, LocalDateTime createdAt) {
-        this.author = author;
+    public Feedback(String text, LocalDateTime createdAt) {
         this.text = text;
         this.createdAt = createdAt;
     }
@@ -79,11 +78,11 @@ public class Feedback {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Feedback feedback = (Feedback) o;
-        return id == feedback.id && author.equals(feedback.author) && text.equals(feedback.text) && createdAt.equals(feedback.createdAt) && product.equals(feedback.product);
+        return id == feedback.id && author.equals(feedback.author) && text.equals(feedback.text) && createdAt.equals(feedback.createdAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, author, text, createdAt, product);
+        return Objects.hash(id, text, createdAt);
     }
 }

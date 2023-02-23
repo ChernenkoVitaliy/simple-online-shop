@@ -84,7 +84,7 @@ public class SellerServiceImplTest {
         return new Seller(account,
                 "Company name",
                 "Company description",
-                phones,
-                "site.com");
+                "site.com",
+                phones);
     }
 }

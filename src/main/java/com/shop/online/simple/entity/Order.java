@@ -100,11 +100,11 @@ public class Order {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return id == order.getId() && customer.equals(order.customer) && createdAt.equals(order.createdAt) && products.equals(order.products) && orderStatus == order.orderStatus && delivery.equals(order.delivery);
+        return id == order.id && createdAt.equals(order.createdAt) && orderStatus == order.orderStatus && customer.equals(order.customer);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, customer, createdAt, products, orderStatus, delivery);
+        return Objects.hash(id, createdAt, orderStatus);
     }
 }

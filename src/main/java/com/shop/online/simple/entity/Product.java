@@ -2,9 +2,7 @@ package com.shop.online.simple.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "product")
@@ -23,17 +21,17 @@ public class Product {
     @Column(nullable = false)
     private BigDecimal price;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id")
     private Seller seller;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "products_tags",
             joinColumns = {@JoinColumn(name = "product_id")},
             inverseJoinColumns = {@JoinColumn(name = "tag_id")})
     private Set<Tag> tags;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Feedback> feedbacks;
 
     public Product() {
@@ -44,8 +42,8 @@ public class Product {
     public Product(String name, String description, BigDecimal price) {
         this.name = name;
         this.description = description;
-        this.tags = new HashSet<>();
         this.price = price;
+        this.tags = new HashSet<>();
         this.feedbacks = new HashSet<>();
     }
 
@@ -110,11 +108,11 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return id == product.id && Objects.equals(name, product.name) && Objects.equals(description, product.description) && Objects.equals(tags, product.tags) && Objects.equals(price, product.price) && Objects.equals(feedbacks, product.feedbacks) && Objects.equals(seller, product.seller);
+        return id == product.id && name.equals(product.name) && description.equals(product.description) && price.equals(product.price) && seller.equals(product.seller);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, tags, price, feedbacks, seller);
+        return Objects.hash(id, name, description, price);
     }
 }
