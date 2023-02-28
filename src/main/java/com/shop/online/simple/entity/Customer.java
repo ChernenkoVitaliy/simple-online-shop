@@ -1,20 +1,46 @@
 package com.shop.online.simple.entity;
 
-import java.util.Objects;
+import javax.persistence.*;
+import java.util.*;
 
+@Entity
+@Table(name = "customer")
 public class Customer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_generator")
+    @SequenceGenerator(name = "customer_generator", sequenceName = "customer_id_seq", allocationSize = 1)
     private long id;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_id")
     private Account account;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private String surname;
+
+    @Column(nullable = false, unique = true)
     private String phone;
-    private Cart cart;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_id")
     private Address deliveryAddress;
-    private WishList wishList;
+
+    @OneToOne(mappedBy = "customer", fetch = FetchType.LAZY)
+    private Cart cart;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "wish_list_product_customer",
+            joinColumns = {@JoinColumn(name = "customer_id")},
+            inverseJoinColumns = {@JoinColumn(name = "product_id")})
+    private List<Product> wishList;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Order> orders;
 
     public Customer() {
-        this.cart = new Cart();
-        this.wishList = new WishList();
     }
 
     public Customer(Account account, String name, String surname, String phone) {
@@ -23,7 +49,8 @@ public class Customer {
         this.surname = surname;
         this.phone = phone;
         this.cart = new Cart();
-        this.wishList = new WishList();
+        this.wishList = new ArrayList<>();
+        this.orders = new HashSet<>();
     }
 
     public long getId() {
@@ -67,7 +94,7 @@ public class Customer {
     }
 
     public Cart getCart() {
-        return cart;
+        return cart == null ? new Cart() : cart;
     }
 
     public void setCart(Cart cart) {
@@ -82,13 +109,20 @@ public class Customer {
         this.deliveryAddress = deliveryAddress;
     }
 
-
-    public WishList getWishList() {
-        return wishList;
+    public List<Product> getWishList() {
+        return wishList == null ? new ArrayList<>() : wishList;
     }
 
-    public void setWishList(WishList wishList) {
+    public void setWishList(List<Product> wishList) {
         this.wishList = wishList;
+    }
+
+    public Set<Order> getOrders() {
+        return orders == null ? new HashSet<>() : orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 
     @Override
@@ -96,11 +130,11 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return id == customer.id && Objects.equals(account, customer.account) && name.equals(customer.name) && surname.equals(customer.surname) && Objects.equals(phone, customer.phone) && Objects.equals(cart, customer.cart) && Objects.equals(deliveryAddress, customer.deliveryAddress) && Objects.equals(wishList, customer.wishList);
+        return id == customer.id && account.equals(customer.account) && name.equals(customer.name) && surname.equals(customer.surname) && phone.equals(customer.phone) && Objects.equals(deliveryAddress, customer.deliveryAddress);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, account, name, surname, phone, cart, deliveryAddress, wishList);
+        return Objects.hash(id, account, name, surname, phone, deliveryAddress);
     }
 }

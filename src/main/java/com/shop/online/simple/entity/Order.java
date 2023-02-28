@@ -2,17 +2,39 @@ package com.shop.online.simple.entity;
 
 import com.shop.online.simple.entity.enums.OrderStatus;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
+@Table(name = "orders")
 public class Order {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orders_generator")
+    @SequenceGenerator(name = "orders_generator", sequenceName = "orders_id_seq", allocationSize = 1)
     private long id;
-    private Customer customer;
+
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
-    private List<Product> products;
+
+    @Column(name = "order_status", nullable = false)
+    @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customer;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "orders_products",
+            joinColumns = {@JoinColumn(name = "order_id")},
+            inverseJoinColumns = {@JoinColumn(name = "product_id")})
+    private List<Product> products;
+
+    @OneToOne(mappedBy = "order")
+    private Delivery delivery;
 
     public Order() {
         this.products = new ArrayList<>();
@@ -65,16 +87,24 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
+    public Delivery getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return id == order.getId() && customer.equals(order.customer) && createdAt.equals(order.createdAt) && products.equals(order.products) && orderStatus == order.orderStatus;
+        return id == order.id && createdAt.equals(order.createdAt) && orderStatus == order.orderStatus && customer.equals(order.customer);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, customer, createdAt, products, orderStatus);
+        return Objects.hash(id, createdAt, orderStatus);
     }
 }

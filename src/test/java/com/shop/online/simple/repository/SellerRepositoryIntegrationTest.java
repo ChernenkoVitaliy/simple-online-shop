@@ -1,40 +1,32 @@
-package com.shop.online.simple.repository.impl;
+package com.shop.online.simple.repository;
 
 import com.shop.online.simple.entity.Account;
 import com.shop.online.simple.entity.Seller;
 import com.shop.online.simple.entity.enums.AccountStatus;
-import com.shop.online.simple.repository.SellerRepository;
-import com.shop.online.simple.repository.rowmapper.AccountRowMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jdbc.core.JdbcTemplate;
-
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@DataJpaTest
 public class SellerRepositoryIntegrationTest {
-    private Seller seller = createSeller();
     @Autowired
     private SellerRepository sellerRepository;
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
 
     @Test
     public void whenFindOne_AndSellerPresentInDataBase_ThenTrue() {
-        Optional<Seller> result = sellerRepository.findOne(1L);
+        Optional<Seller> result = sellerRepository.findById(1L);
 
         assertTrue(result.isPresent());
     }
 
     @Test
     public void whenFindOne_AndSellerNotPresentInDataBase_ThenTrue() {
-        Optional<Seller> result = sellerRepository.findOne(999L);
+        Optional<Seller> result = sellerRepository.findById(999L);
 
         assertTrue(result.isEmpty());
     }
@@ -48,35 +40,22 @@ public class SellerRepositoryIntegrationTest {
 
     @Test
     public void whenSaveNewSeller_ThenSellerPresentInDataBase() {
+        Account account = createAccount();
         Seller newSeller = createSeller();
-        jdbcTemplate.update("INSERT INTO account(email, password, created_at, account_status) VALUES(?, ?, ?, ?);",
-                newSeller.getAccount().getEmail(), newSeller.getAccount().getPassword(),
-                newSeller.getAccount().getCreatedAt(), newSeller.getAccount().getAccountStatus().toString().toUpperCase());
-        Account account = jdbcTemplate.queryForObject("SELECT * FROM account WHERE email = ?",
-                new AccountRowMapper(), newSeller.getAccount().getEmail());
         newSeller.setAccount(account);
 
-        sellerRepository.save(newSeller);
-        Seller sellerFromDb = jdbcTemplate.queryForObject("SELECT * FROM seller WHERE account_id = ?",
-                (rs, rowNum) -> {
-                    Seller s = new Seller();
-                    s.setId(rs.getLong("id"));
-                    s.setCompanyName(rs.getString("company_name"));
-                    s.setCompanyDescription(rs.getString("company_description"));
-                    s.setSite(rs.getString("company_site"));
-                    return s;
-                }, account.getId());
+        Seller result = sellerRepository.save(newSeller);
 
-        assertNotNull(sellerFromDb);
+        assertTrue(result.getId() > 0);
     }
 
     @Test
     public void whenUpdateSeller_ThenSellerUpdatedInDataBase() {
-        Seller sellerForUpdating = sellerRepository.findOne(1L).get();
+        Seller sellerForUpdating = sellerRepository.findById(1L).get();
         sellerForUpdating.setSite("new-site.com");
 
-        sellerRepository.update(sellerForUpdating);
-        Seller updatedSeller = sellerRepository.findOne(1L).get();
+        sellerRepository.save(sellerForUpdating);
+        Seller updatedSeller = sellerRepository.findById(1L).get();
 
         assertEquals(sellerForUpdating, updatedSeller);
     }
@@ -97,8 +76,8 @@ public class SellerRepositoryIntegrationTest {
         seller.setAccount(createAccount());
         seller.setCompanyName("CompanyName");
         seller.setCompanyDescription("Some company description");
-        seller.setPhones(new HashSet<>(List.of("111-11-1112")));
         seller.setSite("company.com");
+        seller.setPhones(new HashSet<>(List.of("111-11-1112")));
 
         return seller;
     }

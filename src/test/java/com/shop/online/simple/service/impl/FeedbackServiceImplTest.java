@@ -4,7 +4,6 @@ import com.shop.online.simple.entity.Account;
 import com.shop.online.simple.entity.Customer;
 import com.shop.online.simple.entity.Feedback;
 import com.shop.online.simple.entity.Product;
-import com.shop.online.simple.repository.FeedbackRepository;
 import com.shop.online.simple.repository.ProductRepository;
 import com.shop.online.simple.service.FeedbackService;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,17 +18,16 @@ import static org.mockito.Mockito.mock;
 
 public class FeedbackServiceImplTest {
     private FeedbackService feedbackService;
-    private FeedbackRepository feedbackRepository = mock(FeedbackRepository.class);
     private ProductRepository productRepository = mock(ProductRepository.class);
     private Account account = createAccount();
     private Customer author = createCustomer();
     private Product product = createProduct();
-    private Feedback feedback = new Feedback(author, "Some feedbacks text", LocalDateTime.now());
+    private Feedback feedback = new Feedback("Some feedbacks text", LocalDateTime.now());
     private Feedback feedbackWithId;
 
     @BeforeEach
     public void setUp() {
-        feedbackService = new FeedbackServiceImpl(feedbackRepository, productRepository);
+        feedbackService = new FeedbackServiceImpl(productRepository);
         feedbackWithId = feedback;
     }
 

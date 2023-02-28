@@ -1,16 +1,7 @@
 package com.shop.online.simple.repository;
 
 import com.shop.online.simple.entity.Seller;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-import java.util.Optional;
-
-public interface SellerRepository {
-    Optional<Seller> findOne(long id);
-
-    List<Seller> findAll();
-
-    void save(Seller seller);
-
-    void update(Seller seller);
+public interface SellerRepository extends JpaRepository<Seller, Long> {
 }

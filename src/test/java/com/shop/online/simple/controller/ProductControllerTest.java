@@ -61,7 +61,7 @@ public class ProductControllerTest {
         SellerDTO sellerDTO = createSellerDTO(seller);
         ProductDTO productDTO = createProductDTO(product);
         when(productDTOMapper.toProduct(any(ProductCreationDTO.class))).thenReturn(product);
-        when(sellerRepository.findOne(1L)).thenReturn(Optional.of(seller));
+        when(sellerRepository.findById(1L)).thenReturn(Optional.of(seller));
         when(sellerService.addNewProduct(any(Product.class), any(Seller.class))).thenReturn(product);
         when(productDTOMapper.toProductDTO(product)).thenReturn(productDTO);
         when(sellerDTOMapper.toSellerDTO(any(Seller.class))).thenReturn(sellerDTO);

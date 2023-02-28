@@ -2,8 +2,8 @@ package com.shop.online.simple.entity.dto;
 
 import com.shop.online.simple.entity.Address;
 import com.shop.online.simple.entity.Cart;
-import com.shop.online.simple.entity.WishList;
 
+import java.util.List;
 import java.util.Objects;
 
 public class CustomerDTO {
@@ -14,7 +14,7 @@ public class CustomerDTO {
     private String phone;
     private Cart cart;
     private Address deliveryAddress;
-    private WishList wishList;
+    private List<ProductDTO> wishList;
 
     public long getId() {
         return id;
@@ -72,11 +72,11 @@ public class CustomerDTO {
         this.deliveryAddress = deliveryAddress;
     }
 
-    public WishList getWishList() {
+    public List<ProductDTO> getWishList() {
         return wishList;
     }
 
-    public void setWishList(WishList wishList) {
+    public void setWishList(List<ProductDTO> wishList) {
         this.wishList = wishList;
     }
 

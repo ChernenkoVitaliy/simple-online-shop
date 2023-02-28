@@ -3,26 +3,18 @@ package com.shop.online.simple.repository;
 import com.shop.online.simple.entity.Product;
 import com.shop.online.simple.entity.Seller;
 import com.shop.online.simple.entity.Tag;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface ProductRepository {
+public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    Optional<Product> findOne(long id);
+    List<Product> findAllByNameContainsIgnoreCase(String name);
 
-    List<Product> findAll();
+    List<Product> findAllBySeller(Seller seller);
 
-    void save(Product product, Seller seller);
-
-    void update(Product product);
-
-    void delete(Product product);
-
-    List<Product> findProductsBySeller(Seller seller);
-
-    List<Product> findProductsByTag(Tag tag);
-
-    List<Product> findProductByName(String name);
-
+    @Query("SELECT p FROM Product p INNER JOIN p.tags t WHERE t = :tag")
+    List<Product> findAllByTag(@Param("tag") Tag tag);
 }

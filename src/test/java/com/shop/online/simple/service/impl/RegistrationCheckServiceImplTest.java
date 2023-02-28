@@ -4,8 +4,6 @@ import com.shop.online.simple.entity.Account;
 import com.shop.online.simple.entity.Customer;
 import com.shop.online.simple.repository.AccountRepository;
 import com.shop.online.simple.repository.CustomerRepository;
-import com.shop.online.simple.repository.impl.AccountRepositoryImpl;
-import com.shop.online.simple.repository.impl.CustomerRepositoryImpl;
 import com.shop.online.simple.service.RegistrationCheckService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,8 +24,8 @@ public class RegistrationCheckServiceImplTest {
 
     @BeforeEach
     public void setUp() {
-        accountRepository = mock(AccountRepositoryImpl.class);
-        customerRepository = mock(CustomerRepositoryImpl.class);
+        accountRepository = mock(AccountRepository.class);
+        customerRepository = mock(CustomerRepository.class);
         registrationCheckService = new RegistrationCheckServiceImpl(accountRepository, customerRepository);
     }
 

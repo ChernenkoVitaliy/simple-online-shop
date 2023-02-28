@@ -1,10 +1,7 @@
 package com.shop.online.simple.repository;
 
 import com.shop.online.simple.entity.Tag;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
-
-public interface TagRepository extends GeneralRepository<Tag> {
-
-    Optional<Tag> findByName(String name);
+public interface TagRepository extends JpaRepository<Tag, Long> {
 }

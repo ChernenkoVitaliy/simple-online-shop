@@ -2,7 +2,6 @@ package com.shop.online.simple.service.impl;
 
 import com.shop.online.simple.entity.Product;
 import com.shop.online.simple.repository.ProductRepository;
-import com.shop.online.simple.repository.impl.ProductRepositoryImpl;
 import com.shop.online.simple.service.SearchService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +17,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class SearchServiceImplTest {
-    private ProductRepository productRepository = mock(ProductRepositoryImpl.class);
+    private ProductRepository productRepository = mock(ProductRepository.class);
     private SearchService searchService;
 
     @BeforeEach
@@ -28,7 +27,7 @@ public class SearchServiceImplTest {
 
     @Test
     public void whenSearchProductByName_AndProductPrent_ThenReturnListOfProducts() {
-        when(productRepository.findProductByName(any())).thenReturn(createProductsList());
+        when(productRepository.findAllByNameContainsIgnoreCase(any())).thenReturn(createProductsList());
 
         List<Product> result = searchService.searchProductByName("name");
 
@@ -37,7 +36,7 @@ public class SearchServiceImplTest {
 
     @Test
     public void whenSearchProductByName_AndProductNotPrent_ThenReturnEmptyList() {
-        when(productRepository.findProductByName(any())).thenReturn(Collections.emptyList());
+        when(productRepository.findAllByNameContainsIgnoreCase(any())).thenReturn(Collections.emptyList());
 
         List<Product> result = searchService.searchProductByName("name");
 

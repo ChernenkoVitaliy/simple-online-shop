@@ -24,10 +24,9 @@ public class SellerServiceImpl implements SellerService {
         Objects.requireNonNull(product, PRODUCT_ERR_TEXT);
         Objects.requireNonNull(seller, SELLER_ERR_TEXT);
 
-        seller.getProducts().add(product);
-        productRepository.save(product, seller);
+        product.setSeller(seller);
 
-        return product;
+        return productRepository.save(product);
     }
 
     /*Seller should be able to delete own products.*/
@@ -37,6 +36,7 @@ public class SellerServiceImpl implements SellerService {
         Objects.requireNonNull(seller, SELLER_ERR_TEXT);
 
         if (seller.getProducts().contains(product)) {
+            seller.getProducts().remove(product);
             productRepository.delete(product);
 
             return true;

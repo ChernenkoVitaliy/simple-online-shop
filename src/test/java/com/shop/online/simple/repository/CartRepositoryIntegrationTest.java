@@ -1,33 +1,25 @@
-package com.shop.online.simple.repository.impl;
+package com.shop.online.simple.repository;
 
 import com.shop.online.simple.entity.Account;
 import com.shop.online.simple.entity.Cart;
 import com.shop.online.simple.entity.Customer;
 import com.shop.online.simple.entity.Product;
-import com.shop.online.simple.repository.CartRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
-public class CartRepositoryImplIntegrationTest {
+@DataJpaTest
+public class CartRepositoryIntegrationTest {
     @Autowired
     private CartRepository cartRepository;
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
 
     @Test
     public void whenFindOne_AndCartPresentInDataBase_ThenReturnCart() {
-        Optional<Cart> result = cartRepository.findOne(1L);
+        Optional<Cart> result = cartRepository.findById(1L);
 
         assertTrue(result.isPresent());
     }
@@ -44,41 +36,19 @@ public class CartRepositoryImplIntegrationTest {
         Customer customer = createCustomer();
         customer.getCart().getProducts().add(createProduct());
 
-        cartRepository.save(customer);
-
-        Cart result = jdbcTemplate.queryForObject("SELECT * FROM cart WHERE customer_id = ?",
-                (rs, rowNum) -> {
-            Cart cart = new Cart();
-            cart.setId(rs.getLong("id"));
-            return cart;
-                }, customer.getId());
+        Cart result = cartRepository.save(customer.getCart());
 
         assertTrue(result.getId() > 0);
     }
 
     @Test
-    @Transactional
-    @Rollback
     public void whenDeleteCart_ThenCartNotPresentInDataBase() {
-        Cart cartForDeleting = cartRepository.findOne(1L).get();
+        Cart cartForDeleting = cartRepository.findById(1L).get();
 
         cartRepository.delete(cartForDeleting);
-        Optional<Cart> result = cartRepository.findOne(1L);
+        Optional<Cart> result = cartRepository.findById(1L);
 
         assertTrue(result.isEmpty());
-    }
-
-    @Test
-    @Transactional
-    @Rollback
-    public void whenDeleteOneProductFromCart_ThenProductNotPresentInCart() {
-        Cart cartForDb = cartRepository.findOne(1L).get();
-        Product productForDeleting = cartForDb.getProducts().get(0);
-
-        cartRepository.deleteProductFromCart(cartForDb, productForDeleting);
-        cartForDb = cartRepository.findOne(1L).get();
-
-        assertFalse(cartForDb.getProducts().contains(productForDeleting));
     }
 
     private Account createAccount() {

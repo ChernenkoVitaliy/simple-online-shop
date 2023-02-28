@@ -1,21 +1,7 @@
 package com.shop.online.simple.repository;
 
 import com.shop.online.simple.entity.Cart;
-import com.shop.online.simple.entity.Customer;
-import com.shop.online.simple.entity.Product;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-import java.util.Optional;
-
-public interface CartRepository{
-
-    Optional<Cart> findOne(long id);
-
-    List<Cart> findAll();
-
-    void save(Customer customer);
-
-    void delete(Cart cart);
-
-    void deleteProductFromCart(Cart cart, Product product);
+public interface CartRepository extends JpaRepository<Cart, Long> {
 }

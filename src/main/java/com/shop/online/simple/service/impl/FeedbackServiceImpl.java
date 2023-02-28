@@ -3,7 +3,6 @@ package com.shop.online.simple.service.impl;
 import com.shop.online.simple.entity.Customer;
 import com.shop.online.simple.entity.Feedback;
 import com.shop.online.simple.entity.Product;
-import com.shop.online.simple.repository.FeedbackRepository;
 import com.shop.online.simple.repository.ProductRepository;
 import com.shop.online.simple.service.FeedbackService;
 import org.springframework.stereotype.Service;
@@ -12,14 +11,12 @@ import java.util.Objects;
 
 @Service
 public class FeedbackServiceImpl implements FeedbackService {
-    private final transient FeedbackRepository feedbackRepo;
     private final transient ProductRepository productRepo;
     private final static String PRODUCT_ERR_TEXT = "Product must not be null.";
     private final static String AUTHOR_ERR_TEXT = "Author must not be null.";
     private final static String FEEDBACK_ERR_TEXT = "Feedback must not be null.";
 
-    public FeedbackServiceImpl(final FeedbackRepository feedbackRepo, final ProductRepository productRepo) {
-        this.feedbackRepo = feedbackRepo;
+    public FeedbackServiceImpl(final ProductRepository productRepo) {
         this.productRepo = productRepo;
     }
 
@@ -32,8 +29,7 @@ public class FeedbackServiceImpl implements FeedbackService {
         feedback.setAuthor(author);
         product.getFeedbacks().add(feedback);
 
-        productRepo.update(product);
-        feedbackRepo.save(feedback, product);
+        productRepo.save(product);
 
         return feedback;
     }

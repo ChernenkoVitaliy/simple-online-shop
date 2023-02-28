@@ -1,11 +1,26 @@
 package com.shop.online.simple.entity;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
+@Table(name = "cart")
 public class Cart {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cart_generator")
+    @SequenceGenerator(name = "cart_generator", sequenceName = "cart_id_seq", allocationSize = 1)
     private long id;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "carts_products",
+            joinColumns = {@JoinColumn(name = "cart_id")},
+            inverseJoinColumns = {@JoinColumn(name = "product_id")})
     private List<Product> products;
 
     public Cart() {
@@ -28,16 +43,24 @@ public class Cart {
         this.products = products;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cart cart = (Cart) o;
-        return id == cart.getId() && Objects.equals(products, cart.products);
+        return id == cart.id && customer.getId() == cart.customer.getId();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, products);
+        return Objects.hash(id, customer.getId());
     }
 }
